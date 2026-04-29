@@ -441,7 +441,7 @@ Examples:
 ## Build & Dev Commands
 
 ```bash
-# Build everything
+# Build everything (requires PKG_CONFIG_PATH set — see setup note below)
 cargo build --workspace
 
 # Run the demo app
@@ -473,3 +473,41 @@ just check
 just lint
 just docs
 ```
+
+> **Setup note:** On some systems, `pkg-config` needs `PKG_CONFIG_PATH` to find GTK4/libadwaita:
+> ```bash
+> export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig"
+> ```
+
+---
+
+## Session Log
+
+### 2026-04-30 — Phase 1.2 (CSS variables file) + demo fix
+
+**Completed:**
+- Created `components/src/theme/theme.css` with:
+  - All CSS variables matching Rust design tokens (colors, spacing, radii, shadows, typography)
+  - `:root.dark` overrides for dark mode
+  - Pre-styled component classes for all 11 primitives/containers
+  - Base element styles (text color, selection, scrollbar)
+
+**Bug fixed:**
+- Demo's `connect_activate` callback was empty — no window appeared. Fixed to create a proper `ApplicationWindow` with a centered label.
+
+**Discoveries:**
+- **libadwaita 0.7 crate naming:** The Rust module is `libadwaita::`, *not* `adw::`. The `adw` shorthand was introduced in libadwaita 1.x. Our `Cargo.toml` pins `libadwaita = "0.7"`, so all code must use `libadwaita::*`.
+- **libadwaita 0.7 API gaps:** `ToolbarView`, `NavigationSplitView` do not exist in 0.7. The plan's `AppShell` layout (which references `AdwNavigationSplitView`) will need to use an alternative layout — likely `gtk::Paned` or a simpler `gtk::Box` + `gtk::Stack` approach.
+- **CSS embedding strategy:** Using a standalone `.css` file + `include_str!()` in `theme/mod.rs`, not a `build.rs` script. The `css.rs` module currently holds the CSS as a string constant — this should be replaced by `include_str!("theme.css")` in task 1.3.
+- **CSS class convention confirmed:** `.relm4-{component}-{variant}` for visual variants, `.relm4-{component}--{modifier}` for states (BEM-style), matching the plan's documented convention.
+
+### 2026-04-30 — Phase 1.3 (Embed CSS at compile time)
+
+**Completed:**
+- Replaced `css.rs` hardcoded CSS string with `include_str!("theme.css")` in `theme/mod.rs`
+- Removed `css.rs` module — the full `theme.css` file is now the single source of truth
+- Confirmed `cargo check --workspace` passes cleanly
+
+**Notes:**
+- Task 1.1 (Design tokens) was already fully implemented in Phase 0 but not marked as done in TODO. Updated TODO to reflect actual state.
+- The `THEME_CSS` constant is now a `pub const` exported from `theme/mod.rs` for use by theme initialization code in task 1.4.

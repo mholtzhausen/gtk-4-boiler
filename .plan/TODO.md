@@ -90,7 +90,7 @@
 
 ### 1.1 — Design tokens (Rust side)
 
-- [ ] Create `components/src/theme/tokens.rs`:
+- [x] Create `components/src/theme/tokens.rs`:
   - `ColorTokens` struct with fields for primary, surface, text, accent, danger, warning
   - `SpacingTokens` struct (xs, sm, md, lg, xl)
   - `RadiiTokens` struct (sm, md, lg, xl)
@@ -110,9 +110,10 @@
 
 ### 1.3 — Embed CSS at compile time
 
-- [ ] Create `components/build.rs`:
-  - Use `include_str!("src/theme/theme.css")` pattern (Rust handles this, no build script needed unless we preprocess)
-  - Actually: embed via `include_str!` in the `theme/mod.rs`, not build.rs — simpler
+- [x] Embed via `include_str!` in `theme/mod.rs`:
+  - Replaced `css.rs` hardcoded string with `include_str!("theme.css")`
+  - The full `theme.css` (variables + all component styles) is now the single source of truth
+  - No build.rs needed
 
 ### 1.4 — Theme initialization
 
