@@ -19,9 +19,8 @@ pub struct Card<Msg> {
     footer: Vec<ButtonAction<Msg>>,
 }
 
-impl<Msg> Card<Msg> {
-    /// Create a new card builder.
-    pub fn new() -> Self {
+impl<Msg> Default for Card<Msg> {
+    fn default() -> Self {
         Self {
             title: None,
             subtitle: None,
@@ -29,6 +28,13 @@ impl<Msg> Card<Msg> {
             child: None,
             footer: Vec::new(),
         }
+    }
+}
+
+impl<Msg> Card<Msg> {
+    /// Create a new card builder.
+    pub fn new() -> Self {
+        Self::default()
     }
 
     /// Set the card title.

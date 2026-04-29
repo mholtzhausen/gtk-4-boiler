@@ -117,7 +117,7 @@
 
 ### 1.4 — Theme initialization
 
-- [ ] Create `components/src/theme/mod.rs`:
+- [x] Create `components/src/theme/mod.rs`:
   - `pub fn init()` — loads embedded CSS into `CssProvider`, attaches to `StyleContext` at `APPLICATION` priority
   - `pub fn init_with_overrides(css: &str)` — same but appends extra CSS
   - `pub struct DarkModeWatcher` — relm4 component that:

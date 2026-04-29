@@ -110,24 +110,13 @@ impl Default for TypographyTokens {
 }
 
 /// The complete theme definition containing all token categories.
+#[derive(Default)]
 pub struct Theme {
     pub colors: ColorTokens,
     pub spacing: SpacingTokens,
     pub radii: RadiiTokens,
     pub typography: TypographyTokens,
     pub shadows: ShadowTokens,
-}
-
-impl Default for Theme {
-    fn default() -> Self {
-        Self {
-            colors: ColorTokens::default(),
-            spacing: SpacingTokens::default(),
-            radii: RadiiTokens::default(),
-            typography: TypographyTokens::default(),
-            shadows: ShadowTokens::default(),
-        }
-    }
 }
 
 impl Theme {

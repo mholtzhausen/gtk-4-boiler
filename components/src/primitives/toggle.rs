@@ -8,15 +8,21 @@ pub struct Toggle<Msg> {
     on_toggle: Option<Box<dyn Fn(bool) -> Msg>>,
 }
 
-impl<Msg> Toggle<Msg> {
-    /// Create a new toggle builder.
-    pub fn new() -> Self {
+impl<Msg> Default for Toggle<Msg> {
+    fn default() -> Self {
         Self {
             title: None,
             description: None,
             active: false,
             on_toggle: None,
         }
+    }
+}
+
+impl<Msg> Toggle<Msg> {
+    /// Create a new toggle builder.
+    pub fn new() -> Self {
+        Self::default()
     }
 
     /// Set the toggle title/label.

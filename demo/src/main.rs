@@ -2,7 +2,7 @@ use gtk4::prelude::*;
 
 fn main() -> glib::ExitCode {
     // Initialize theme before creating any widgets
-    // relm4_kit::theme::init();  // uncomment when theme::init() is implemented
+    relm4_kit::theme::init();
 
     let app = gtk4::Application::new(Some("com.relm4-kit.demo"), Default::default());
 

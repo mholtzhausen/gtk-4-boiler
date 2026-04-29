@@ -22,14 +22,20 @@ pub struct Badge {
     size: BadgeSize,
 }
 
-impl Badge {
-    /// Create a new badge builder.
-    pub fn new() -> Self {
+impl Default for Badge {
+    fn default() -> Self {
         Self {
             text: None,
             variant: BadgeVariant::Neutral,
             size: BadgeSize::Medium,
         }
+    }
+}
+
+impl Badge {
+    /// Create a new badge builder.
+    pub fn new() -> Self {
+        Self::default()
     }
 
     /// Set the badge text.

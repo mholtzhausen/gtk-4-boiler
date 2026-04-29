@@ -25,9 +25,8 @@ pub struct Button<Msg> {
     on_click: Option<Msg>,
 }
 
-impl<Msg> Button<Msg> {
-    /// Create a new button builder.
-    pub fn new() -> Self {
+impl<Msg> Default for Button<Msg> {
+    fn default() -> Self {
         Self {
             label: None,
             variant: ButtonVariant::Secondary,
@@ -35,6 +34,13 @@ impl<Msg> Button<Msg> {
             icon: None,
             on_click: None,
         }
+    }
+}
+
+impl<Msg> Button<Msg> {
+    /// Create a new button builder.
+    pub fn new() -> Self {
+        Self::default()
     }
 
     /// Set the button label.
