@@ -211,3 +211,49 @@ fn toggle_dark_class(is_dark: bool) {
         }
     }
 }
+
+// ============================================================================
+// Tests  (pure-Rust tests only — GTK-dependent tests live in
+//         `components/tests/theme_integration.rs`)
+// ============================================================================
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// Verify default token values are reasonable.
+    #[test]
+    fn theme_tokens_have_defaults() {
+        let theme = Theme::default();
+        assert_eq!(theme.colors.primary, "#3584e4");
+        assert_eq!(theme.colors.surface, "#ffffff");
+        assert_eq!(theme.colors.text, "#1a1a1a");
+        assert_eq!(theme.spacing.xs, "4px");
+        assert_eq!(theme.spacing.md, "16px");
+        assert_eq!(theme.spacing.xl, "32px");
+        assert_eq!(theme.radii.sm, "4px");
+        assert_eq!(theme.radii.md, "8px");
+        assert_eq!(theme.radii.xl, "16px");
+        assert_eq!(theme.typography.sm, "12px");
+        assert_eq!(theme.typography.lg, "16px");
+        assert_eq!(theme.typography.xxl, "24px");
+        assert_eq!(theme.shadows.sm, "0 1px 3px rgba(0,0,0,0.12)");
+        assert_eq!(theme.shadows.md, "0 4px 12px rgba(0,0,0,0.1)");
+        assert_eq!(theme.shadows.lg, "0 8px 24px rgba(0,0,0,0.12)");
+    }
+
+    /// Verify dark-mode tokens differ from light defaults.
+    #[test]
+    fn dark_theme_overrides_colors() {
+        let light = Theme::default();
+        let dark = Theme::dark();
+
+        // Surface colours must differ.
+        assert_ne!(dark.colors.surface, light.colors.surface);
+        assert_ne!(dark.colors.text, light.colors.text);
+        assert_ne!(dark.colors.background, light.colors.background);
+
+        // Primary should be slightly lighter in dark mode.
+        assert_ne!(dark.colors.primary, light.colors.primary);
+    }
+}

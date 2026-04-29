@@ -127,10 +127,17 @@
 
 ### 1.5 — Verify theme works
 
-- [ ] Write a test in `theme/mod.rs` that:
-  - Calls `init()`
-  - Creates a `gtk::Label`, attaches it to a window
-  - Verifies no panic, CSS property is `Some`
+- [x] Write unit tests in `theme/mod.rs` verifying:
+  - Default token values are correct
+  - Dark mode overrides differ from light defaults
+- [x] Write integration test in `tests/theme_integration.rs` verifying:
+  - `THEME_CSS` parses as valid CSS via `CssProvider::load_from_data`
+  - `theme::init()` runs without panic
+  - `theme::init_with_overrides()` runs without panic
+  - `init()` attaches the theme CSS to the display (widget CSS classes work)
+  - All expected CSS variables are present in the stylesheet (`--color-*`, `--spacing-*`, `--radius-*`, `--font-*`, `--shadow-*`)
+  - `:root.dark` overrides exist
+  - Component class names are present (`.relm4-card`, `.relm4-btn-primary`)
 
 **Phase 1 done when:** `theme::init()` can be called and dark mode toggles via `StyleManager`.
 
