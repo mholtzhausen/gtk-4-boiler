@@ -1,12 +1,15 @@
 use gtk4::prelude::*;
 
 fn main() -> glib::ExitCode {
-    // Initialize theme before creating any widgets
-    relm4_kit::theme::init();
-
     let app = gtk4::Application::new(Some("com.relm4-kit.demo"), Default::default());
 
     app.connect_activate(|app| {
+        // Initialise the theme system.  Must happen **after** the
+        // application is created so that GTK and the display are
+        // available for `CssProvider` and
+        // `style_context_add_provider_for_display`.
+        relm4_kit::theme::init();
+
         // Create a simple window
         let window = gtk4::ApplicationWindow::new(app);
         window.set_title(Some("relm4-kit Demo"));
