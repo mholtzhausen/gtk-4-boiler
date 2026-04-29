@@ -1,0 +1,8 @@
+[template]
+ignore = [".git"]
+
+[placeholders]
+project-name = { type = "string", prompt = "Project name", default = "my-app" }
+app-id = { type = "string", prompt = "Application ID (reverse domain)", default = "com.{{project-name}}" }
+version = { type = "string", prompt = "Version", default = "0.1.0" }
+author = { type = "string", prompt = "Author name", default = "" }

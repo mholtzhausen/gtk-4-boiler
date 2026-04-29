@@ -1,0 +1,12 @@
+[package]
+name = "{{project-name}}"
+version = "{{version}}"
+edition = "2021"
+authors = ["{{author}}"]
+
+[dependencies]
+relm4-kit = { path = "../components" }
+relm4 = { version = "0.9", features = ["libadwaita"] }
+gtk4 = "0.9"
+libadwaita = "0.7"
+glib = "0.20"
