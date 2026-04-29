@@ -102,7 +102,7 @@
 
 ### 1.2 — CSS variables file
 
-- [ ] Create `components/src/theme/theme.css`:
+- [x] Create `components/src/theme/theme.css`:
   - `:root { ... }` with all CSS variables matching the Rust tokens
   - `:root.dark { ... }` with dark mode overrides
   - Pre-styled classes for each primitive: `.relm4-card`, `.relm4-btn-primary`, etc.
