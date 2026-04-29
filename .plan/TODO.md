@@ -147,11 +147,11 @@
 
 ### 2.1 — ButtonAction (helper data struct)
 
-- [ ] Create `components/src/primitives/action.rs`:
+- [x] Create `components/src/primitives/action.rs`:
   - `pub enum ActionKind { Primary, Secondary, Danger }`
   - `pub struct ButtonAction<Msg> { label: String, kind: ActionKind, on_activate: Msg }`
   - `impl<Msg> ButtonAction<Msg> { pub fn new(label, msg) -> Self, pub fn primary(label, msg) -> Self, pub fn danger(label, msg) -> Self }`
-- [ ] Export from `primitives/mod.rs`
+- [x] Export from `primitives/mod.rs`
 
 ### 2.2 — Card
 
