@@ -6,6 +6,21 @@
 
 ## Phase 0: Project Scaffolding & Toolchain
 
+### 0.0 — Pi tooling (extensions)
+
+- [x] Create plan-mode extension at `.pi/extensions/plan-mode/`
+  - `/plan` command, `Ctrl+Alt+P` shortcut, `--plan` flag
+  - Read-only exploration mode with bash allowlist
+  - Plan extraction from `Plan:` sections with `[DONE:n]` tracking
+  - Progress widget + session persistence
+- [x] Create brainstorm-mode extension at `.pi/extensions/brainstorm-mode/`
+  - `/brainstorm` command, `Ctrl+Alt+B` shortcut, `--brainstorm` flag
+  - Interactive `question` tool — LLM calls it to get user decisions via ↑↓ select UI
+  - System prompt instructs LLM to use `question` for every decision point
+  - Bash restricted to read-only allowlist
+  - State persistence, context filtering, footer status indicator
+  - 7 passing tests for `isSafeCommand()`
+
 ### 0.1 — Workspace root
 
 - [x] Create root `Cargo.toml` with `[workspace]` members: `components`, `demo` (template is not a Rust crate)
@@ -39,27 +54,33 @@
 
 ### 0.4 — template/ directory
 
-- [ ] Create `template/cargo-generate.toml` with template variables:
+- [x] Create `template/cargo-generate.toml` with template variables:
   - `project-name` (default: "my-app")
   - `app-id` (default: "com.{{project-name}}")
   - `version` (default: "0.1.0")
   - `author`
-- [ ] Create `template/template/` structure (contents filled in Phase 5)
+- [x] Create `template/template/` structure (contents filled in Phase 5)
 
 ### 0.5 — CI & tooling
 
-- [ ] Create `.github/workflows/ci.yml`:
+- [x] Create `.github/workflows/ci.yml`:
   - `check` job: `cargo check --workspace`
   - `lint` job: `cargo clippy --workspace -- -D warnings`
   - `fmt` job: `cargo fmt --check`
   - `build-demo` job: `cargo build --release -p demo`
-- [ ] Create `justfile`:
+  - `test` job: `cargo test --workspace`
+- [x] Create `justfile`:
   - `dev`: `cargo run -p demo`
   - `check`: `cargo check --workspace`
   - `lint`: `cargo clippy --workspace -- -D warnings`
   - `fmt`: `cargo fmt`
+  - `fmt-check`: `cargo fmt --check`
   - `docs`: `cargo doc --open -p relm4-kit`
-- [ ] Create `scripts/dev.sh`, `scripts/setup.sh` (stubs)
+  - `test`: `cargo test --workspace`
+  - `build`: `cargo build --workspace`
+  - `build-demo`: `cargo build --release -p demo`
+  - `new`: `./scripts/new-project.sh`
+- [x] Create `scripts/dev.sh`, `scripts/setup.sh`, `scripts/new-project.sh` (stubs)
 
 **Phase 0 done when:** `cargo check --workspace` compiles cleanly.
 
