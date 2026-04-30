@@ -243,16 +243,16 @@
 
 ### 3.2 — Sidebar
 
-- [ ] Create `components/src/containers/sidebar.rs`:
-  - `pub struct SidebarModel { items: Vec<NavItem>, active_id: Option<String>, collapsed: HashSet<String> }`
+- [x] Create `components/src/containers/sidebar.rs`:
+  - `pub struct Sidebar` with items, active_id, collapsed, list_box fields
   - `pub enum SidebarMsg { ItemSelected(String), ToggleCollapse(String) }`
   - `pub enum SidebarOutput { Navigate(String) }`
-  - Uses `gtk::ListBox` (simple) or `gtk::ColumnView` (more complex) for rendering
+  - Uses `gtk::ListBox` for rendering with dynamic row building
   - Each item shows: icon (if present), label, badge (if present)
-  - Active item has highlight, children are indented or collapsible
+  - Active item has highlight, parent items collapsible, sections non-interactive
   - `impl SimpleComponent for Sidebar`
-  - CSS: `.relm4-sidebar`, `.relm4-sidebar-item`, `.relm4-sidebar-item--active`, `.relm4-sidebar-section`
-- [ ] Export from `containers/mod.rs`
+  - CSS classes already in `theme.css`: `.relm4-sidebar`, `.relm4-sidebar-item`, `.relm4-sidebar-item--active`, `.relm4-sidebar-section`
+- [x] Export from `containers/mod.rs`
 
 ### 3.3 — ToastStack
 

@@ -7,3 +7,6 @@
 // Re-export all primitives so users can do `use relm4_kit::prelude::*;`
 // and get Card, Button, Toggle, Badge, Avatar, ButtonAction, etc.
 pub use crate::primitives::*;
+
+// Re-export all containers so users get Sidebar, NavItem, etc.
+pub use crate::containers::*;
