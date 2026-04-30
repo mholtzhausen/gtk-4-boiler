@@ -456,7 +456,7 @@
 
 ### 4.10 — Dialog Demo page
 
-- [ ] `demo/src/pages/dialog_demo.rs`:
+- [x] `demo/src/pages/dialog_demo.rs`:
   - Confirm dialog (with dangerous action)
   - Info dialog
   - Custom content dialog
@@ -703,7 +703,7 @@ Phase 0 ───→ Phase 1 ───→ Phase 2 ───→ Phase 3 ───
 - [ ] Phase 1: ✅ Done
 - [ ] Phase 2: Card, Button, Toggle, Badge
 - [x] Phase 3: ✅ AppShell, Sidebar, ToastStack, Dialog, EmptyState, SearchBar (remaining: TreeView, SettingsPanel, TabView)
-- [ ] Phase 4: Welcome, Theme Showcase, Card, Button, Toggle, Badge, Toast, Dialog, EmptyState pages
+- [x] Phase 4: Welcome, Theme Showcase, Card, Button, Toggle, Badge, Toast, Dialog pages
 - [ ] Phase 5: Template scaffolds a compilable app (has bugs to fix)
 - [ ] Phase 6: ARCHITECTURE.md, COMPONENTS.md (at least for MVP components)
 - [ ] Phase 7: ✅ dev.sh, new-project.sh, setup.sh

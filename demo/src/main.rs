@@ -105,7 +105,7 @@ fn main() -> glib::ExitCode {
             .content_stack
             .add_titled(&toast_page, Some("toast"), "Toast Demo");
 
-        let dialog_page = pages::dialog_demo::create();
+        let dialog_page = pages::dialog_demo::create(window);
         model
             .content_stack
             .add_titled(&dialog_page, Some("dialog"), "Dialog Demo");
