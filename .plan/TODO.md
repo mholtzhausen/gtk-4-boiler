@@ -187,8 +187,8 @@
 
 ### 2.4 — Toggle
 
-- [ ] Create `components/src/primitives/toggle.rs`:
-  - `pub struct Toggle` — wraps `AdwSwitchRow` or `gtk::Box` with `gtk::Switch`
+- [x] Create `components/src/primitives/toggle.rs`:
+  - `pub struct Toggle` — wraps `gtk::Box` with `gtk::Switch`
   - Builder:
     - `.title(&str)`
     - `.description(&str)`
@@ -196,7 +196,7 @@
     - `.on_toggle(impl Fn(bool) -> Msg)`
     - `.build()`
   - CSS classes: `.relm4-toggle`
-- [ ] Export from `primitives/mod.rs`
+- [x] Export from `primitives/mod.rs`
 
 ### 2.5 — Badge
 
