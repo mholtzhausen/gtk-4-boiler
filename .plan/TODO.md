@@ -214,15 +214,15 @@
 
 ### 2.6 — Avatar
 
-- [ ] Create `components/src/primitives/avatar.rs`:
-  - `pub struct Avatar` — returns `AdwAvatar` or custom `gtk::DrawingArea`
+- [x] Create `components/src/primitives/avatar.rs`:
+  - `pub struct Avatar` — returns `AdwAvatar`
   - Builder:
     - `.initials(&str)`
     - `.icon(&str)` → overrides initials
     - `.size(i32)`
     - `.build()`
   - CSS classes: `.relm4-avatar`
-- [ ] Export from `primitives/mod.rs`
+- [x] Export from `primitives/mod.rs`
 
 ### 2.7 — Primitives prelude
 
