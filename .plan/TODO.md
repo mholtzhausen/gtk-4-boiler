@@ -155,11 +155,11 @@
 
 ### 2.2 — Card
 
-- [ ] Create `components/src/primitives/card.rs`:
+- [x] Create `components/src/primitives/card.rs`:
   - `pub enum CardStyle { Flat, Elevated, Outlined }`
   - `pub struct Card` — builder pattern, returns `gtk::Box`
   - Builder methods:
-    - `.title(&str)` → `AdwWindowTitle` or `gtk::Label`
+    - `.title(&str)` → `gtk::Label`
     - `.subtitle(&str)` → optional subtitle
     - `.style(CardStyle)` → CSS class
     - `.child(&impl IsA<gtk::Widget>)` → content area

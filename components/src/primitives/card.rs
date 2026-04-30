@@ -1,9 +1,10 @@
 //! Card primitive — a container with title, subtitle, optional footer actions.
 
-use crate::primitives::action::ButtonAction;
+use crate::primitives::action::{ActionKind, ButtonAction};
 use gtk4::prelude::*;
 
 /// The visual style of a card.
+#[derive(Clone, Copy, PartialEq)]
 pub enum CardStyle {
     Flat,
     Elevated,
@@ -68,7 +69,69 @@ impl<Msg> Card<Msg> {
     }
 
     /// Build the card widget.
+    ///
+    /// Returns a vertical [`gtk4::Box`] with the following structure:
+    ///
+    /// ```ignore
+    /// ├── (if title)   Label.card-title
+    /// ├── (if subtitle) Label.card-subtitle
+    /// ├── (if child)   child widget
+    /// └── (if footer)  Box.card-footer [Button, Button, …]
+    /// ```
     pub fn build(self) -> gtk4::Box {
-        gtk4::Box::new(gtk4::Orientation::Vertical, 0)
+        let card = gtk4::Box::new(gtk4::Orientation::Vertical, 0);
+        card.add_css_class("relm4-card");
+
+        // Apply style variant CSS class.
+        match self.style {
+            CardStyle::Flat => card.add_css_class("card-flat"),
+            CardStyle::Elevated => card.add_css_class("card-elevated"),
+            CardStyle::Outlined => card.add_css_class("card-outlined"),
+        }
+
+        // Title.
+        if let Some(title) = self.title {
+            let title_label = gtk4::Label::new(Some(&title));
+            title_label.add_css_class("card-title");
+            title_label.set_halign(gtk4::Align::Start);
+            title_label.set_xalign(0.0);
+            card.append(&title_label);
+        }
+
+        // Subtitle.
+        if let Some(subtitle) = self.subtitle {
+            let subtitle_label = gtk4::Label::new(Some(&subtitle));
+            subtitle_label.add_css_class("card-subtitle");
+            subtitle_label.set_halign(gtk4::Align::Start);
+            subtitle_label.set_xalign(0.0);
+            card.append(&subtitle_label);
+        }
+
+        // Child widget (content area).
+        if let Some(child) = self.child {
+            card.append(&child);
+        }
+
+        // Footer action buttons.
+        if !self.footer.is_empty() {
+            let footer = gtk4::Box::new(gtk4::Orientation::Horizontal, 8);
+            footer.add_css_class("card-footer");
+            footer.set_halign(gtk4::Align::End);
+
+            for action in self.footer {
+                let button = gtk4::Button::with_label(&action.label);
+                button.add_css_class("relm4-btn");
+                let kind_class = match action.kind {
+                    ActionKind::Primary => "relm4-btn-primary",
+                    ActionKind::Secondary => "relm4-btn-secondary",
+                    ActionKind::Danger => "relm4-btn-danger",
+                };
+                button.add_css_class(kind_class);
+                footer.append(&button);
+            }
+            card.append(&footer);
+        }
+
+        card
     }
 }
