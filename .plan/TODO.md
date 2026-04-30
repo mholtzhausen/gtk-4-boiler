@@ -475,7 +475,7 @@
 
 ### 5.1 — Template metadata
 
-- [ ] `template/cargo-generate.toml`:
+- [x] `template/cargo-generate.toml`:
   - `[placeholders]` for project-name, app-id, version, author
   - `[template]`: `ignore = [".git"]`
 
@@ -486,6 +486,7 @@
   - Version = `{{version}}`
   - Dependency: `relm4-kit = { git = "https://github.com/YOUR_USER/relm4-kit", tag = "v0.1.0" }`
   - Dependency: `relm4` with libadwaita feature
+  - **ⓘ** Currently uses `path = "../components"` — needs git dependency for release
 
 ### 5.3 — Template entry point
 
@@ -494,7 +495,8 @@
     - `relm4_kit::theme::init()`
     - `RelmApp::new("{{app-id}}")`
     - `AppShell::builder().title("{{project-name}}").sidebar(...).build()`
-    - `app.run(shell)`
+    - `app.run::<AppShell>(...)`
+  - **ⓘ** Has bugs: `NavItem::new()` passes `Some("...")` (expects `impl Into<String>`, not `Option`), and `app.run(shell)` doesn't match relm4 0.9's `app.run::<C>(C::Init)` signature
 
 ### 5.4 — Template pages
 
@@ -560,7 +562,7 @@
 
 ### 7.1 — dev.sh
 
-- [ ] `scripts/dev.sh`: watches demo and rebuilds on change:
+- [x] `scripts/dev.sh`: watches demo and rebuilds on change:
   ```bash
   #!/usr/bin/env bash
   cargo watch -x "run -p demo"
@@ -568,7 +570,7 @@
 
 ### 7.2 — new-project.sh
 
-- [ ] `scripts/new-project.sh`: wrapper around cargo-generate:
+- [x] `scripts/new-project.sh`: wrapper around cargo-generate:
   ```bash
   #!/usr/bin/env bash
   set -e
@@ -578,7 +580,7 @@
 
 ### 7.3 — setup.sh
 
-- [ ] `scripts/setup.sh`: checks system deps:
+- [x] `scripts/setup.sh`: checks system deps:
   ```bash
   #!/usr/bin/env bash
   command -v cargo >/dev/null 2>&1 || { echo "Install Rust: https://rustup.rs"; exit 1; }
@@ -658,6 +660,10 @@
 
 ---
 
+**Phase 3 done when:** AppShell, Sidebar, ToastStack compile and work together. (Dialog + EmptyState still pending)
+
+---
+
 ## Quick Reference: Build Order
 
 ```
@@ -678,10 +684,10 @@ Phase 0 ───→ Phase 1 ───→ Phase 2 ───→ Phase 3 ───
 - [ ] Phase 0: ✅ Done
 - [ ] Phase 1: ✅ Done
 - [ ] Phase 2: Card, Button, Toggle, Badge
-- [ ] Phase 3: AppShell, Sidebar, ToastStack, Dialog, EmptyState
+- [ ] Phase 3: ✅ AppShell, Sidebar, ToastStack — ❌ Dialog, EmptyState
 - [ ] Phase 4: Welcome, Theme Showcase, Card, Button, Toggle, Badge, Toast, Dialog, EmptyState pages
-- [ ] Phase 5: Template scaffolds a compilable app
+- [ ] Phase 5: Template scaffolds a compilable app (has bugs to fix)
 - [ ] Phase 6: ARCHITECTURE.md, COMPONENTS.md (at least for MVP components)
-- [ ] Phase 7: dev.sh, new-project.sh
+- [ ] Phase 7: ✅ dev.sh, new-project.sh, setup.sh
 - [ ] Phase 8: Unit tests for MVP components
 - [ ] Phase 9: Release tag
