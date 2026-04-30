@@ -499,24 +499,23 @@
   - `[placeholders]` for project-name, app-id, version, author
   - `[template]`: `ignore = [".git"]`
 
-### 5.2 — Template Cargo.toml
+### 5.2 — Template Cargo.toml ✅
 
-- [ ] `template/template/Cargo.toml`:
+- [x] `template/template/Cargo.toml`:
   - Package name = `{{project-name}}`
   - Version = `{{version}}`
   - Dependency: `relm4-kit = { git = "https://github.com/YOUR_USER/relm4-kit", tag = "v0.1.0" }`
   - Dependency: `relm4` with libadwaita feature
-  - **ⓘ** Currently uses `path = "../components"` — needs git dependency for release
+  - Added missing deps: `relm4-components`, `log`, feature flags `gtk4/v4_10`, `libadwaita/v1_5`
 
 ### 5.3 — Template entry point
 
-- [ ] `template/template/src/main.rs`:
-  - Minimal structure:
-    - `relm4_kit::theme::init()`
-    - `RelmApp::new("{{app-id}}")`
-    - `AppShell::builder().title("{{project-name}}").sidebar(...).build()`
-    - `app.run::<AppShell>(...)`
-  - **ⓘ** Has bugs: `NavItem::new()` passes `Some("...")` (expects `impl Into<String>`, not `Option`), and `app.run(shell)` doesn't match relm4 0.9's `app.run::<C>(C::Init)` signature
+- [x] `template/template/src/main.rs`:
+  - Uses `gtk4::Application` with `connect_activate` (matching demo pattern)
+  - `NavItem::new()` passes plain strings, not `Some(...)`
+  - Imports `gtk4::prelude::*` and `relm4::ComponentController` for method resolution
+  - Adds dashboard + settings pages to content stack
+  - Verified: `cargo check` passes after rendering with cargo-generate
 
 ### 5.4 — Template pages
 
