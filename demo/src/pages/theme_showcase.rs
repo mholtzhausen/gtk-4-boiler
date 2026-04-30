@@ -180,7 +180,10 @@ fn create_section_title(title: &str, description: &str) -> gtk4::Box {
 // Dark Mode Toggle
 // ============================================================================
 
-/// Build a row with a switch that toggles `.dark` class on toplevel windows.
+/// Build a row with a switch that controls dark mode via
+/// [`adw::StyleManager`].  This keeps the toggle in sync with the
+/// [`DarkModeWatcher`](relm4_kit::theme::DarkModeWatcher) component
+/// used by AppShell (both observe `StyleManager::is_dark`).
 fn create_dark_mode_toggle() -> gtk4::Box {
     let row = gtk4::Box::new(gtk4::Orientation::Horizontal, 12);
     row.add_css_class("showcase-toggle-row");
@@ -194,23 +197,28 @@ fn create_dark_mode_toggle() -> gtk4::Box {
     label.add_css_class("showcase-toggle-label");
     row.append(&label);
 
+    let style_manager = libadwaita::StyleManager::default();
+
     let toggle = gtk4::Switch::new();
-    toggle.set_active(false);
+    // Initialise from the current system/application dark state so the
+    // toggle is never out of sync with what is actually displayed.
+    toggle.set_active(style_manager.is_dark());
     toggle.set_valign(gtk4::Align::Center);
     toggle.set_halign(gtk4::Align::End);
     toggle.set_hexpand(true);
 
-    // When toggled, add or remove the `dark` CSS class on all toplevel windows.
-    // The signal handler stays alive for the lifetime of the switch widget.
+    // When toggled, request the colour scheme through libadwaita's
+    // StyleManager.  The DarkModeWatcher (which is always running inside
+    // AppShell) observes `notify::is-dark` and will add/remove the `.dark`
+    // CSS class automatically.  This avoids two systems fighting over the
+    // same class list.
     toggle.connect_active_notify(move |sw| {
-        let is_dark = sw.is_active();
-        for widget in gtk4::Window::list_toplevels() {
-            if is_dark {
-                widget.add_css_class("dark");
-            } else {
-                widget.remove_css_class("dark");
-            }
-        }
+        let scheme = if sw.is_active() {
+            libadwaita::ColorScheme::ForceDark
+        } else {
+            libadwaita::ColorScheme::ForceLight
+        };
+        style_manager.set_color_scheme(scheme);
     });
 
     row.append(&toggle);

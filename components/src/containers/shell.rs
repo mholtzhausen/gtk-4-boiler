@@ -171,10 +171,14 @@ impl SimpleComponent for AppShell {
         root.set_title(Some(&init.title));
         root.set_default_size(init.width, init.height);
 
-        // ----- Header bar -----
+        // ----- Header bar (also set as window titlebar for CSD) -----
         let header = libadwaita::HeaderBar::new();
         header.add_css_class("relm4-header");
-        widgets.main_box.append(&header);
+
+        // Register the header bar as the window's titlebar widget so that
+        // client-side decorations (close / minimise / maximise buttons) are
+        // rendered inside it.
+        root.set_titlebar(Some(&header));
 
         // ----- Horizontal paned: sidebar | content area -----
         let paned = gtk4::Paned::new(gtk4::Orientation::Horizontal);
