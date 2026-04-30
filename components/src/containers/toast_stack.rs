@@ -156,19 +156,6 @@ impl SimpleComponent for ToastStack {
         gtk4::Overlay {
             set_vexpand: true,
             set_hexpand: true,
-
-            // The content widget is set in init() as the main overlay child.
-            // The toast box is an overlay child positioned at bottom-right.
-
-            #[name = "toast_box"]
-            gtk4::Box {
-                set_orientation: gtk4::Orientation::Vertical,
-                set_spacing: 4,
-                set_valign: gtk4::Align::End,
-                set_halign: gtk4::Align::End,
-                set_margin_bottom: 16,
-                set_margin_end: 16,
-            }
         }
     }
 
@@ -179,14 +166,38 @@ impl SimpleComponent for ToastStack {
     ) -> ComponentParts<Self> {
         let widgets = view_output!();
 
-        // Set the parent's content as the main overlay child.
+        // ---- IMPORTANT: overlay children vs main child ----
+        //
+        // In the view! macro above, the Overlay has no nested children.
+        // If we put a nested Box inside the view! macro's Overlay,
+        // relm4 calls `RelmContainerExt::container_add()` on it.
+        // Since `gtk::Overlay` implements `RelmSetChildExt`, the default
+        // `container_add` calls `overlay.set_child()` — which sets the
+        // MAIN child, NOT an overlay child.  Then `root.set_child(&content)`
+        // below replaces it, orphaning the toast box.
+        //
+        // To avoid this, we create the toast box manually and register it
+        // as a proper overlay child via `add_overlay()`.
+
+        // Create the toast box as a proper GTK overlay child.
+        let toast_box = gtk4::Box::new(gtk4::Orientation::Vertical, 4);
+        toast_box.set_spacing(4);
+        toast_box.set_valign(gtk4::Align::End);
+        toast_box.set_halign(gtk4::Align::End);
+        toast_box.set_margin_bottom(16);
+        toast_box.set_margin_end(16);
+
+        // Add it as an overlay child — it floats above the main child.
+        root.add_overlay(&toast_box);
+
+        // Set the main child (the content passed by the user).
         root.set_child(Some(&content));
 
         let model = ToastStack {
             toasts: Vec::new(),
             widgets: HashMap::new(),
             next_id: 0,
-            toast_box: widgets.toast_box.clone(),
+            toast_box,
         };
 
         ComponentParts { model, widgets }
