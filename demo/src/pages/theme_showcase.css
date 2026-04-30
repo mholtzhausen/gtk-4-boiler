@@ -1,0 +1,257 @@
+/* Theme Showcase page — swatches, bars, radius previews, and typography.
+ * Scoped via CssProvider to just the showcase page widgets. */
+
+/* ============================================================
+   Section headings
+   ============================================================ */
+
+.showcase-section-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
+
+.dark .showcase-section-title {
+    color: #ffffff;
+}
+
+.showcase-section-desc {
+    font-size: 13px;
+    color: #5e5c64;
+    margin-bottom: 8px;
+}
+
+.dark .showcase-section-desc {
+    color: #b0b0b0;
+}
+
+/* ============================================================
+   Dark mode toggle row
+   ============================================================ */
+
+.showcase-toggle-row {
+    padding: 12px 16px;
+    background-color: alpha(currentColor, 0.04);
+    border-radius: 8px;
+    border: 1px solid alpha(currentColor, 0.08);
+    margin-bottom: 8px;
+}
+
+.showcase-toggle-label {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* ============================================================
+   Color palette — grid of swatch cards
+   ============================================================ */
+
+.showcase-color-grid {
+    margin-top: 4px;
+    margin-bottom: 8px;
+}
+
+.showcase-color-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    padding: 0;
+    min-width: 180px;
+}
+
+.dark .showcase-color-card {
+    background-color: #1a1a1a;
+    border-color: #3a3a3a;
+}
+
+.showcase-color-swatch {
+    min-width: 180px;
+    min-height: 48px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.showcase-color-info {
+    padding: 8px 10px;
+}
+
+.showcase-color-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.dark .showcase-color-name {
+    color: #ffffff;
+}
+
+.showcase-color-hex {
+    font-family: "Cascadia Code", "Fira Code", "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: #5e5c64;
+}
+
+.dark .showcase-color-hex {
+    color: #b0b0b0;
+}
+
+/* Individual swatch background colours */
+.swatch-primary { background-color: #3584e4; }
+.swatch-primary-hover { background-color: #2a6fc7; }
+.swatch-surface { background-color: #ffffff; border-bottom: 1px solid #dee2e6; }
+.swatch-surface-secondary { background-color: #f6f5f4; }
+.swatch-background { background-color: #f0f0f0; }
+.swatch-text { background-color: #1a1a1a; }
+.swatch-text-secondary { background-color: #5e5c64; }
+.swatch-accent { background-color: #33d17a; }
+.swatch-danger { background-color: #e66156; }
+.swatch-warning { background-color: #f6d32d; }
+
+/* ============================================================
+   Spacing bars
+   ============================================================ */
+
+.showcase-spacing-row {
+    margin-bottom: 6px;
+}
+
+.showcase-spacing-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #5e5c64;
+    min-width: 100px;
+}
+
+.dark .showcase-spacing-label {
+    color: #b0b0b0;
+}
+
+.showcase-spacing-value {
+    font-family: "Cascadia Code", "Fira Code", "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: #5e5c64;
+    min-width: 60px;
+}
+
+.dark .showcase-spacing-value {
+    color: #b0b0b0;
+}
+
+.showcase-spacing-bar {
+    min-height: 16px;
+    border-radius: 3px;
+    background-color: #3584e4;
+}
+
+/* ============================================================
+   Radius preview boxes
+   ============================================================ */
+
+.showcase-radius-box {
+    min-width: 64px;
+    min-height: 64px;
+    background-color: #3584e4;
+}
+
+.dark .showcase-radius-box {
+    background-color: #4a90d9;
+}
+
+.showcase-radius-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #5e5c64;
+    margin-top: 4px;
+}
+
+.dark .showcase-radius-label {
+    color: #b0b0b0;
+}
+
+.showcase-radius-value {
+    font-family: "Cascadia Code", "Fira Code", "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: #5e5c64;
+}
+
+.dark .showcase-radius-value {
+    color: #b0b0b0;
+}
+
+/* ============================================================
+   Typography scale
+   ============================================================ */
+
+.showcase-type-row {
+    padding: 8px 12px;
+    border-bottom: 1px solid alpha(currentColor, 0.06);
+}
+
+.showcase-type-name {
+    font-weight: 600;
+    color: #5e5c64;
+    min-width: 60px;
+}
+
+.dark .showcase-type-name {
+    color: #b0b0b0;
+}
+
+.showcase-type-sample {
+    color: #1a1a1a;
+}
+
+.dark .showcase-type-sample {
+    color: #ffffff;
+}
+
+.showcase-type-info {
+    font-family: "Cascadia Code", "Fira Code", "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: #5e5c64;
+    min-width: 80px;
+}
+
+.dark .showcase-type-info {
+    color: #b0b0b0;
+}
+
+/* ============================================================
+   Shadow preview boxes
+   ============================================================ */
+
+.showcase-shadow-box {
+    min-width: 120px;
+    min-height: 80px;
+    background-color: #ffffff;
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+}
+
+.dark .showcase-shadow-box {
+    background-color: #1a1a1a;
+    border-color: #3a3a3a;
+}
+
+.showcase-shadow-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #5e5c64;
+    margin-top: 4px;
+}
+
+.dark .showcase-shadow-label {
+    color: #b0b0b0;
+}
+
+.showcase-shadow-value {
+    font-family: "Cascadia Code", "Fira Code", "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: #5e5c64;
+}
+
+.dark .showcase-shadow-value {
+    color: #b0b0b0;
+}

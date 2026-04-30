@@ -394,7 +394,7 @@
 
 ### 4.3 — Theme Showcase page
 
-- [ ] `demo/src/pages/theme_showcase.rs`:
+- [x] `demo/src/pages/theme_showcase.rs`:
   - Color palette grid with swatches and hex values
   - Spacing scale with visual bars
   - Radius scale with corner previews
