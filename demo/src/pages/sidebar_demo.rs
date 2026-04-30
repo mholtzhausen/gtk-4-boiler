@@ -252,37 +252,24 @@ fn build_status_bar() -> gtk4::Label {
 }
 
 // ============================================================================
-// Widget tree traversal helper (reused from card_demo)
+// Widget tree traversal — find first ListBox child by type
 // ============================================================================
 
-trait FindChild {
-    fn find_child(&self, name: &str) -> Option<gtk4::Widget>;
-}
-
-fn find_in_widget(widget: &gtk4::Widget, name: &str) -> Option<gtk4::Widget> {
-    if widget.widget_name() == name {
-        return Some(widget.clone());
+/// Find the first `gtk4::ListBox` descendant of `widget` by type.
+/// The sidebar's ListBox has no GTK widget name set (relm4's `#[name]` only
+/// sets the Rust field name), so we look up by type instead.
+fn find_list_box(widget: &gtk4::Widget) -> Option<gtk4::ListBox> {
+    if let Some(lb) = widget.downcast_ref::<gtk4::ListBox>() {
+        return Some(lb.clone());
     }
     let mut child = widget.first_child();
     while let Some(ref c) = child {
-        if let Some(found) = find_in_widget(c, name) {
+        if let Some(found) = find_list_box(c) {
             return Some(found);
         }
         child = c.next_sibling();
     }
     None
-}
-
-impl FindChild for gtk4::Widget {
-    fn find_child(&self, name: &str) -> Option<gtk4::Widget> {
-        find_in_widget(self, name)
-    }
-}
-
-impl FindChild for gtk4::Box {
-    fn find_child(&self, name: &str) -> Option<gtk4::Widget> {
-        find_in_widget(self.upcast_ref(), name)
-    }
 }
 
 // ============================================================================
@@ -387,11 +374,11 @@ pub fn create() -> gtk4::Box {
     paned.set_end_child(Some(&content_area));
 
     // ---- Wire sidebar listbox to update content area ----
-    // Traverse the sidebar widget tree to find the ListBox and connect
-    // a row-activated handler that updates the content preview.
-    if let Some(list_box) = sidebar_widget.find_child("list_box")
-        .and_then(|w| w.downcast::<gtk4::ListBox>().ok())
-    {
+    // Traverse the sidebar widget tree to find the ListBox by type and
+    // connect a row-activated handler that updates the content preview.
+    // NB: We cannot find by widget name because relm4's `#[name]` attribute
+    // only sets the Rust field name, not the GTK widget name.
+    if let Some(list_box) = find_list_box(sidebar_widget.upcast_ref()) {
         let status_clone = status_label.clone();
         let content_area_clone = content_area.clone();
         list_box.connect_row_activated(move |_lb, row| {
