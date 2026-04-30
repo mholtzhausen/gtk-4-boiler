@@ -342,17 +342,17 @@
 
 ### 3.9 — SettingsPanel
 
-- [ ] Create `components/src/containers/settings_panel.rs`:
+- [x] Create `components/src/containers/settings_panel.rs`:
   - Wraps `AdwPreferencesPage` + `AdwPreferencesGroup`
-  - `pub struct SettingsPanel { page: AdwPreferencesPage }`
+  - `pub struct SettingsPanel` — builder pattern
   - Builder:
     - `.group("Group Name")` → starts a new group
-    - `.add(SettingsRow::Toggle("Label", Msg))`
-    - `.add(SettingsRow::Dropdown("Label", &[options], Msg))`
-    - `.add(SettingsRow::Entry("Label", Msg))`
-    - `.add(SettingsRow::Slider("Label", min, max, default, Msg))`
+    - `.add_row(SettingsRow::toggle("Label", |active| ...))`
+    - `.add_row(SettingsRow::dropdown("Label", &[options], |idx| ...))`
+    - `.add_row(SettingsRow::entry("Label", |text| ...))`
+    - `.add_row(SettingsRow::slider("Label", min, max, default, |val| ...))`
     - `.build()` → returns `AdwPreferencesPage`
-- [ ] Export from `containers/mod.rs`
+- [x] Export from `containers/mod.rs` (already exported)
 
 ### 3.10 — TabView
 
