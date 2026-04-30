@@ -256,17 +256,16 @@
 
 ### 3.3 — ToastStack
 
-- [ ] Create `components/src/containers/toast_stack.rs`:
+- [x] Create `components/src/containers/toast_stack.rs`:
   - `pub enum ToastKind { Success, Error, Warning, Info }`
-  - `struct ToastEntry { id: u32, message: String, kind: ToastKind, action_label: Option<String>, action_msg: Option<Msg> }`
-  - `pub struct ToastStackModel { toasts: Vec<ToastEntry>, next_id: u32 }`
-  - `pub enum ToastStackMsg { Show(ToastEntry), Dismiss(u32), DismissTop }`
+  - `struct ToastEntry { id: u32, message: String, kind: ToastKind, action_label: Option<String> }`
+  - `pub enum ToastStackMsg { Show(String, ToastKind), ShowWithAction(String, ToastKind, String), Dismiss(u32), DismissTop }`
   - Uses `gtk::Overlay` positioned at bottom-right
   - Each toast auto-dismisses after 4 seconds (glib::timeout_add_seconds_local)
   - Stack shows up to 3 toasts, oldest is dismissed when >3
-  - Static API: `ToastStack::show(message, kind)` — uses global sender or component reference
-  - CSS: `.relm4-toast`, `.toast-success`, `.toast-error`, `.toast-warning`, `.toast-info`
-- [ ] Export from `containers/mod.rs`
+  - Action button emits `ToastStackOutput::ActionTriggered` to parent
+  - CSS: `.relm4-toast`, `.toast-success`, `.toast-error`, `.toast-warning`, `.toast-info` (already in `theme.css`)
+- [x] Export from `containers/mod.rs` (already present)
 
 ### 3.4 — AppShell
 
