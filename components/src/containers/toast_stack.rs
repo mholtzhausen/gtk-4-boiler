@@ -28,6 +28,10 @@ use relm4::{ComponentParts, ComponentSender, SimpleComponent};
 /// Maximum number of toasts visible at once.
 const MAX_VISIBLE: usize = 3;
 
+/// Maximum number of toasts kept in the pending queue beyond the visible
+/// stack.  When the queue is full, the oldest pending toast is dropped.
+const MAX_PENDING: usize = 10;
+
 /// Seconds before a toast auto-dismisses.
 const DISMISS_SECS: u32 = 4;
 
@@ -130,9 +134,11 @@ struct ToastWidget {
 
 /// A stack of auto-dismissing toast notifications.
 pub struct ToastStack {
-    /// Active toasts, ordered oldest-first.
+    /// Visible toasts, ordered oldest-first (topmost in the stack).
     toasts: Vec<ToastEntry>,
-    /// Maps toast id → widget handle for removal.
+    /// Pending toasts waiting to be shown when space opens up.
+    pending: Vec<ToastEntry>,
+    /// Maps visible-toast id → widget handle for removal.
     widgets: HashMap<u32, ToastWidget>,
     /// Auto-incrementing id counter.
     next_id: u32,
@@ -195,6 +201,7 @@ impl SimpleComponent for ToastStack {
 
         let model = ToastStack {
             toasts: Vec::new(),
+            pending: Vec::new(),
             widgets: HashMap::new(),
             next_id: 0,
             toast_box,
@@ -212,11 +219,11 @@ impl SimpleComponent for ToastStack {
                 self.add_toast(message, kind, Some(action_label), &sender);
             }
             ToastStackMsg::Dismiss(id) => {
-                self.dismiss_toast(id);
+                self.dismiss_toast(id, &sender);
             }
             ToastStackMsg::DismissTop => {
                 if let Some(oldest) = self.toasts.first() {
-                    self.dismiss_toast(oldest.id);
+                    self.dismiss_toast(oldest.id, &sender);
                 }
             }
         }
@@ -228,7 +235,12 @@ impl SimpleComponent for ToastStack {
 // ============================================================================
 
 impl ToastStack {
-    /// Add a new toast with the given properties and schedule auto-dismiss.
+    /// Add a new toast with the given properties.
+    ///
+    /// If fewer than `MAX_VISIBLE` toasts are currently shown, the toast
+    /// appears immediately and an auto-dismiss timer is scheduled.
+    /// Otherwise it is pushed onto the pending queue.  When a visible
+    /// toast is dismissed the oldest pending toast is promoted.
     fn add_toast(
         &mut self,
         message: String,
@@ -239,34 +251,32 @@ impl ToastStack {
         let id = self.next_id;
         self.next_id += 1;
 
-        // Build the toast widget.
-        let widget = build_toast_widget(id, &message, kind, action_label.as_deref(), sender);
-        self.toast_box.append(&widget);
-
-        // Store state.
         let entry = ToastEntry {
             id,
             message,
             kind,
-            action_label,
+            action_label: action_label.clone(),
         };
-        self.toasts.push(entry);
-        self.widgets.insert(
-            id,
-            ToastWidget {
-                _row: widget.clone(),
-            },
-        );
 
-        // Enforce the max-visible limit (dismiss oldest first).
-        while self.toasts.len() > MAX_VISIBLE {
-            let oldest_id = self.toasts.first().map(|e| e.id);
-            if let Some(oldest_id) = oldest_id {
-                self.dismiss_toast(oldest_id);
+        if self.toasts.len() < MAX_VISIBLE {
+            // Show immediately.
+            let widget = build_toast_widget(
+                id, &entry.message, entry.kind, action_label.as_deref(), sender,
+            );
+            self.toast_box.append(&widget);
+            self.widgets.insert(id, ToastWidget { _row: widget });
+            self.toasts.push(entry);
+        } else {
+            // Queue for later — cap the pending queue so it can't grow unbounded.
+            if self.pending.len() >= MAX_PENDING {
+                self.pending.remove(0);
             }
+            self.pending.push(entry);
         }
 
-        // Schedule auto-dismiss.
+        // Schedule auto-dismiss for every toast regardless.  If the timer
+        // fires while the toast is still pending (never shown), it is simply
+        // removed from the pending queue by dismiss_toast.
         let sender_clone = sender.clone();
         glib::timeout_add_seconds_local(DISMISS_SECS, move || {
             sender_clone.input(ToastStackMsg::Dismiss(id));
@@ -274,15 +284,37 @@ impl ToastStack {
         });
     }
 
-    /// Remove a toast by its id from both the widget tree and internal state.
-    fn dismiss_toast(&mut self, id: u32) {
-        // Remove the widget from the box.
+    /// Remove a toast by its id.
+    ///
+    /// If the toast was visible, its widget is removed from the overlay.
+    /// If there are pending toasts, the oldest one is promoted into the
+    /// visible stack.
+    fn dismiss_toast(
+        &mut self,
+        id: u32,
+        sender: &ComponentSender<Self>,
+    ) {
+        // Was it visible?  Remove the widget and entry.
         if let Some(w) = self.widgets.remove(&id) {
             self.toast_box.remove(&w._row);
         }
-
-        // Remove the entry from the vec.
+        let was_visible = self.toasts.iter().any(|e| e.id == id);
         self.toasts.retain(|e| e.id != id);
+
+        // Was it pending?  Just drop it from the queue.
+        self.pending.retain(|e| e.id != id);
+
+        // Promote the next pending toast if we just freed a slot.
+        if was_visible && !self.pending.is_empty() {
+            let entry = self.pending.remove(0);
+            let widget = build_toast_widget(
+                entry.id, &entry.message, entry.kind,
+                entry.action_label.as_deref(), sender,
+            );
+            self.toast_box.append(&widget);
+            self.widgets.insert(entry.id, ToastWidget { _row: widget });
+            self.toasts.push(entry);
+        }
     }
 }
 
