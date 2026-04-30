@@ -547,3 +547,19 @@ scrollbar slider:hover {
 .relm4-tree-view .relm4-tree-cell {
     padding: 4px;
 }
+
+/* ============================================================
+   TabView / TabBar
+   ============================================================ */
+
+.relm4-tab-view {
+    background-color: #ffffff;
+}
+
+.dark .relm4-tab-view {
+    background-color: #1a1a1a;
+}
+
+.relm4-tab-bar {
+    /* Inherits libadwaita default tab bar styling */
+}

@@ -356,12 +356,18 @@
 
 ### 3.10 — TabView
 
-- [ ] Create `components/src/containers/tab_view.rs`:
+- [x] Create `components/src/containers/tab_view.rs`:
   - Wraps `AdwTabBar` + `AdwTabView`
-  - `pub struct TabViewModel { tabs: Vec<TabEntry>, active: u32 }`
-  - `pub enum TabViewMsg { SwitchTab(u32), CloseTab(u32), Reorder(u32, u32) }`
-  - Builder: `TabView::new().tab("Title", &widget).closable(true).on_switch(fn).build()`
-- [ ] Export from `containers/mod.rs`
+  - `pub struct TabView` — relm4 SimpleComponent
+  - `pub struct TabEntry` with title, child, closable, icon, tooltip
+  - `pub enum TabViewMsg { SwitchTab(usize), CloseTab(usize) }`
+  - `pub enum TabViewOutput { TabSwitched(usize), TabClosed(usize) }`
+  - Builder via relm4 standard `TabView::builder().launch(vec![...])`
+  - Close-page signal connected for close button handling
+  - Selected-page notify for switch detection
+  - `find_page_index()` helper using `SelectionModel` API
+- [x] Export from `containers/mod.rs` (was already declared)
+- [x] CSS classes `.relm4-tab-view` and `.relm4-tab-bar` in `theme.css`
 
 **Phase 3 done when:** All container components compile and have at least basic tests.
 
