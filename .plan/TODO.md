@@ -269,16 +269,16 @@
 
 ### 3.4 — AppShell
 
-- [ ] Create `components/src/containers/shell.rs`:
+- [x] Create `components/src/containers/shell.rs`:
   - `pub struct AppShell { window: AdwApplicationWindow, header: AdwHeaderBar, sidebar: Controller<Sidebar>, content: gtk::Stack, toasts: Controller<ToastStack>, dark_mode: DarkModeWatcher }`
   - `pub struct AppShellBuilder { title, width, height, sidebar_items, on_navigate_cb, ... }`
   - `impl AppShellBuilder { pub fn title(), pub fn size(), pub fn sidebar(), pub fn on_navigate(), pub fn build() -> Controller<AppShell> }`
-  - Layout: `AdwNavigationSplitView` or `gtk::Paned` with sidebar left + content right
-  - Header has: window title, optional search button, window controls (libadwaita handles this)
+  - Layout: `gtk::Paned` with sidebar left + content right (NavigationSplitView unavailable in libadwaita 0.7)
+  - Header bar at top of window (libadwaita handles window controls)
   - ToastStack overlaid on top of content area
   - DarkModeWatcher instantiated automatically
-  - CSS: `.relm4-shell`, `.relm4-header`
-- [ ] Export from `containers/mod.rs`
+  - CSS: `.relm4-shell`, `.relm4-header` (already in theme.css)
+- [x] Export from `containers/mod.rs` (already present)
 
 ### 3.5 — Dialog
 
