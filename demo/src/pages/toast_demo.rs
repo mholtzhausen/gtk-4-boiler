@@ -66,13 +66,7 @@ pub fn create() -> gtk4::Box {
     outer.set_hexpand(true);
     outer.add_css_class("relm4-page");
 
-    let scrolled = gtk4::ScrolledWindow::new();
-    scrolled.set_vexpand(true);
-    scrolled.set_hexpand(true);
-    scrolled.set_policy(gtk4::PolicyType::Never, gtk4::PolicyType::Automatic);
-    outer.append(&scrolled);
-
-    // ---- Content box (will be wrapped by the ToastStack overlay) ----
+    // ---- Content box ----
     let content = gtk4::Box::new(gtk4::Orientation::Vertical, 0);
     content.add_css_class("toast-demo-layout");
     content.set_margin_top(24);
@@ -81,14 +75,27 @@ pub fn create() -> gtk4::Box {
     content.set_margin_end(24);
     content.set_spacing(0);
 
-    // ---- Create a standalone ToastStack wrapping the content ----
-    // We create this *before* populating content so we can capture the
-    // sender in button closures.  The controller is then leaked to keep
-    // the runtime alive for the window's lifetime.
+    // ---- ScrolledWindow holds the content; OVERLAY wraps the scrolled window ----
+    // The overlay MUST wrap the ScrolledWindow so toast notifications are
+    // positioned relative to the visible viewport, not the full scrollable
+    // content height.
+    let scrolled = gtk4::ScrolledWindow::new();
+    scrolled.set_vexpand(true);
+    scrolled.set_hexpand(true);
+    scrolled.set_policy(gtk4::PolicyType::Never, gtk4::PolicyType::Automatic);
+    scrolled.set_child(Some(&content));
+
+    // ---- Create a standalone ToastStack wrapping the scrolled area ----
+    // The overlay will fill the outer box (visible area).  The ScrolledWindow
+    // is the main overlay child so the content scrolls inside it.  The toast
+    // box is an overlay child at bottom-right of the visible viewport.
     let toasts: Controller<ToastStack> = ToastStack::builder()
-        .launch(content.clone().upcast::<gtk4::Widget>())
+        .launch(scrolled.upcast::<gtk4::Widget>())
         .detach();
     let toast_sender = toasts.sender().clone();
+
+    // ---- Put the overlay directly in the outer box ----
+    outer.append(toasts.widget());
 
     // ====================================================================
     // Page header
@@ -435,13 +442,11 @@ pub fn create() -> gtk4::Box {
     let code_panel = create_code_panel();
     content.append(&code_panel);
 
-    // ---- Attach the ToastStack (overlay) to the scrolled window ----
-    scrolled.set_child(Some(toasts.widget()));
-
     // ---- Leak the controller to keep the runtime alive ----
-    // The controller's `detach()` call already makes the component runtime
-    // independent; however, dropping the controller would still stop it.
-    // We leak it so the ToastStack lives for the lifetime of the window.
+    // The overlay is already attached to `outer` above.  The controller's
+    // `detach()` call makes the component runtime independent; however,
+    // dropping the controller would still stop it.  We leak it so the
+    // ToastStack lives for the lifetime of the window.
     std::mem::forget(toasts);
 
     outer
