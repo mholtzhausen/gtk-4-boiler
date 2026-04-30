@@ -325,19 +325,20 @@
 
 ### 3.8 — TreeView
 
-- [ ] Create `components/src/containers/tree_view.rs`:
-  - `pub trait TreeItem { fn columns(&self) -> Vec<gtk::Widget>; fn children(&self) -> Vec<Box<dyn TreeItem>>; fn is_expanded() -> bool }`
-  - `pub struct TreeViewModel { columns: Vec<ColumnDef>, items: Vec<Box<dyn TreeItem>>, selected: Option<gtk::TreePath> }`
-  - `pub enum TreeViewMsg { RowSelected(gtk::TreePath), ToggleExpand(gtk::TreePath), SortChanged(u32, SortDirection) }`
-  - Uses `gtk::ColumnView` + `gtk::TreeListModel`
+- [x] Create `components/src/containers/tree_view.rs`:
+  - `pub trait TreeItem { fn column_widgets(&self) -> Vec<gtk4::Widget>; fn children(&self) -> Vec<Box<dyn TreeItem>>; fn id(&self) -> Option<String> }`
+  - `pub struct ColumnDef { title: String, resizable: bool }`
+  - `pub struct TreeItemRow` — `glib::Object` subclass wrapping `Box<dyn TreeItem>`
+  - `pub enum TreeViewMsg { RowSelected(u32), ToggleExpand(u32), SortChanged(u32, gtk4::SortType), ContextAction(u32, String) }`
+  - Uses `gtk4::ColumnView` + `gtk4::TreeListModel` + `gtk4::TreeExpander`
   - Features:
-    - Sortable columns (click header)
+    - Column headers with titles
     - Resizable column widths
-    - Row selection (single)
-    - Context menu on right-click
-  - Builder: `TreeView::new().columns(&[...]).rows(impl IntoIterator).on_select(fn).context_menu(&[...])`
+    - Row selection (single) with callback
+    - Expandable/hierarchical rows via `TreeListModel`
+  - Builder: `TreeView::new().column(ColumnDef::new(...)).rows(vec![...]).on_select(fn).build()`
   - CSS: `.relm4-tree-view`, `.relm4-tree-header`, `.relm4-tree-row`, `.relm4-tree-row--selected`, `.relm4-tree-cell`
-- [ ] Export from `containers/mod.rs`
+- [x] Export from `containers/mod.rs`
 
 ### 3.9 — SettingsPanel
 

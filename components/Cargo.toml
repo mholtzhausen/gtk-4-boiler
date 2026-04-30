@@ -6,7 +6,7 @@ edition = "2021"
 [dependencies]
 relm4 = { version = "0.9", features = ["libadwaita"] }
 relm4-components = "0.9"
-gtk4 = "0.9"
+gtk4 = { version = "0.9", features = ["v4_10"] }
 libadwaita = { version = "0.7", features = ["v1_5"] }
 glib = "0.20"
 log = "0.4"
