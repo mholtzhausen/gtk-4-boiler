@@ -171,7 +171,7 @@
 
 ### 2.3 — Button
 
-- [ ] Create `components/src/primitives/button.rs`:
+- [x] Create `components/src/primitives/button.rs`:
   - `pub enum ButtonVariant { Primary, Secondary, Ghost, Danger, Link }`
   - `pub enum ButtonSize { Small, Medium, Large }`
   - `pub struct Button` — wraps `gtk::Button`, returns `gtk::Button`
@@ -183,7 +183,7 @@
     - `.on_click(Msg)` → connects to `connect_clicked`
     - `.build()` → returns `gtk::Button`
   - CSS classes: `.relm4-btn`, `.relm4-btn-primary`, `.relm4-btn-small`, `.btn-icon`
-- [ ] Export from `primitives/mod.rs`
+- [x] Export from `primitives/mod.rs`
 
 ### 2.4 — Toggle
 
