@@ -1,0 +1,190 @@
+/* Toast Demo page — interactive preview of all toast notification
+ * kinds, stacking behaviour, and action-button support.
+ * Scoped via CssProvider to avoid conflicts with other pages. */
+
+/* ============================================================
+   Layout
+   ============================================================ */
+
+.toast-demo-layout {
+    min-width: 0;
+    min-height: 0;
+}
+
+/* ============================================================
+   Section labels
+   ============================================================ */
+
+.toast-demo-section-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-top: 12px;
+    margin-bottom: 6px;
+}
+
+.dark .toast-demo-section-label {
+    color: #ffffff;
+}
+
+.toast-demo-subsection-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #5e5c64;
+}
+
+.dark .toast-demo-subsection-label {
+    color: #b0b0b0;
+}
+
+/* ============================================================
+   Button rows
+   ============================================================ */
+
+.toast-demo-row {
+    min-height: 28px;
+}
+
+/* ============================================================
+   Toast kind badges (coloured chips)
+   ============================================================ */
+
+.toast-demo-kind-badge {
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 4px;
+    padding: 2px 8px;
+}
+
+.toast-demo-kind-badge-success {
+    background-color: alpha(#26a269, 0.15);
+    color: #26a269;
+}
+
+.dark .toast-demo-kind-badge-success {
+    background-color: alpha(#33d17a, 0.15);
+    color: #33d17a;
+}
+
+.toast-demo-kind-badge-error {
+    background-color: alpha(#c01c28, 0.15);
+    color: #c01c28;
+}
+
+.dark .toast-demo-kind-badge-error {
+    background-color: alpha(#e66100, 0.15);
+    color: #e66100;
+}
+
+.toast-demo-kind-badge-warning {
+    background-color: alpha(#e66100, 0.15);
+    color: #e66100;
+}
+
+.dark .toast-demo-kind-badge-warning {
+    background-color: alpha(#ffa154, 0.15);
+    color: #ffa154;
+}
+
+.toast-demo-kind-badge-info {
+    background-color: alpha(#3584e4, 0.15);
+    color: #3584e4;
+}
+
+.dark .toast-demo-kind-badge-info {
+    background-color: alpha(#62a0ea, 0.15);
+    color: #62a0ea;
+}
+
+/* ============================================================
+   Status / queue panel
+   ============================================================ */
+
+.toast-demo-queue-panel {
+    background-color: alpha(currentColor, 0.03);
+    border-radius: 8px;
+    border: 1px solid alpha(currentColor, 0.10);
+    padding: 12px 16px;
+    min-height: 60px;
+}
+
+.dark .toast-demo-queue-panel {
+    border-color: alpha(currentColor, 0.18);
+}
+
+.toast-demo-queue-label {
+    font-size: 13px;
+    color: #5e5c64;
+    font-family: "Cascadia Code", "Fira Code", "JetBrains Mono", monospace;
+}
+
+.dark .toast-demo-queue-label {
+    color: #b0b0b0;
+}
+
+.toast-demo-queue-entry {
+    font-size: 12px;
+    color: #1a1a1a;
+    font-family: "Cascadia Code", "Fira Code", "JetBrains Mono", monospace;
+    padding: 2px 0;
+}
+
+.dark .toast-demo-queue-entry {
+    color: #d8dee9;
+}
+
+/* ============================================================
+   Description text
+   ============================================================ */
+
+.toast-demo-description {
+    font-size: 13px;
+    color: #5e5c64;
+    background-color: alpha(currentColor, 0.03);
+    border-radius: 6px;
+    border: 1px solid alpha(currentColor, 0.08);
+    padding: 10px 14px;
+}
+
+.dark .toast-demo-description {
+    color: #b0b0b0;
+    border-color: alpha(currentColor, 0.15);
+}
+
+/* ============================================================
+   Code panel
+   ============================================================ */
+
+.toast-demo-code-panel {
+    background-color: #2e3440;
+    border-radius: 8px;
+    min-height: 200px;
+}
+
+.dark .toast-demo-code-panel {
+    background-color: #1a1a2e;
+}
+
+.toast-demo-code-title {
+    background-color: #3b4252;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    padding: 6px 12px;
+}
+
+.dark .toast-demo-code-title {
+    background-color: #252540;
+}
+
+.toast-demo-code-title-text {
+    font-size: 11px;
+    color: #8fbcbb;
+    font-family: "Cascadia Code", "Fira Code", "JetBrains Mono", monospace;
+}
+
+.toast-demo-code-text {
+    font-size: 12px;
+    font-family: "Cascadia Code", "Fira Code", "JetBrains Mono", monospace;
+    color: #d8dee9;
+    line-height: 1.5;
+}

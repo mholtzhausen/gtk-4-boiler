@@ -443,13 +443,16 @@
   - Section headers
   - Collapsible sections
 
-### 4.9 — Toast Demo page
+### 4.9 — Toast Demo page ✅
 
-- [ ] `demo/src/pages/toast_demo.rs`:
+- [x] `demo/src/pages/toast_demo.rs`:
   - Buttons to trigger: Success, Error, Warning, Info toasts
   - Toast with action button
-  - Rapid toast (stacking)
-  - Shows toast queue state
+  - Rapid toast (stacking) — Fire All (6 toasts), Stack Test (3 toasts), Dismiss Oldest
+  - Shows toast queue state (counter label + visual stacking in ToastStack)
+  - Custom message entry with Send Info / Send Error
+  - Standalone ToastStack component embedded in page, controller leaked for lifetime
+  - Code panel with source example
 
 ### 4.10 — Dialog Demo page
 
