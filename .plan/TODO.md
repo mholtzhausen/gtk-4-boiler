@@ -300,16 +300,16 @@
 
 ### 3.6 — EmptyState
 
-- [ ] Create `components/src/containers/empty_state.rs`:
+- [x] Create `components/src/containers/empty_state.rs`:
   - `pub struct EmptyState` — builder pattern, returns `gtk::Box`
   - Builder:
     - `.icon(&str)` — symbolic icon name
     - `.title(&str)`
     - `.description(&str)`
-    - `.action(label, Msg)` — optional single action button
+    - `.action(label, Fn)` — optional single action button (closure callback)
     - `.build()`
   - CSS: `.relm4-empty-state`, `.relm4-empty-state-icon`, `.relm4-empty-state-title`, `.relm4-empty-state-description`
-- [ ] Export from `containers/mod.rs`
+- [x] Export from `containers/mod.rs` (already declared)
 
 ### 3.7 — SearchBar
 
