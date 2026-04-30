@@ -29,7 +29,7 @@
 //!     fn id(&self) -> Option<String> { Some(self.name.clone()) }
 //! }
 //!
-//! let tree = TreeView::new()
+//! let tree = TreeViewBuilder::new()
 //!     .column(ColumnDef::new("Name").resizable(true))
 //!     .column(ColumnDef::new("Size"))
 //!     .rows(vec![
@@ -191,7 +191,7 @@ pub enum TreeViewOutput {
 
 /// Builder for constructing a [`TreeView`] component.
 ///
-/// Obtain via [`TreeView::new`], configure columns and rows, then call
+/// Obtain via [`TreeViewBuilder::new`], configure columns and rows, then call
 /// [`build`](TreeViewBuilder::build) to create the widget.
 pub struct TreeViewBuilder {
     /// Column definitions.
@@ -238,7 +238,7 @@ impl TreeViewBuilder {
     /// Returns a [`gtk4::ColumnView`] widget ready to be added to a
     /// container.
     pub fn build(self) -> gtk4::ColumnView {
-        TreeView::build_widget(self)
+        TreeViewBuilder::build_widget(self)
     }
 }
 
@@ -286,10 +286,7 @@ fn items_to_store(items: Vec<Box<dyn TreeItem>>) -> gtk4::gio::ListStore {
 /// Given a `glib::Object` (which is a `TreeItemRow`), returns a
 /// `ListModel` of its children (or `None` if no children).
 fn tree_item_create_func(item: &glib::Object) -> Option<gtk4::gio::ListModel> {
-    let wrapper: &TreeItemRow = match item.downcast_ref::<TreeItemRow>() {
-        Some(w) => w,
-        None => return None,
-    };
+    let wrapper: &TreeItemRow = item.downcast_ref::<TreeItemRow>()?;
     let children = wrapper.item().children();
 
     if children.is_empty() {
@@ -304,10 +301,10 @@ fn tree_item_create_func(item: &glib::Object) -> Option<gtk4::gio::ListModel> {
 // Widget building
 // ============================================================================
 
-impl TreeView {
+impl TreeViewBuilder {
     /// Create a new [`TreeViewBuilder`].
-    pub fn new() -> TreeViewBuilder {
-        TreeViewBuilder::default()
+    pub fn new() -> Self {
+        Self::default()
     }
 
     /// Internal: build the actual `gtk::ColumnView` widget from a builder.
