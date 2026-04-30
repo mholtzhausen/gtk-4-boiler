@@ -152,10 +152,12 @@ impl SimpleComponent for AppShell {
         libadwaita::ApplicationWindow {
             add_css_class: "relm4-shell",
 
-            // Outer vertical box: header bar on top, main content below.
-            #[name = "main_box"]
-            gtk4::Box {
-                set_orientation: gtk4::Orientation::Vertical,
+            // AdwToolbarView manages the header bar (with CSD window
+            // controls) and the main content area.
+            #[name = "toolbar_view"]
+            libadwaita::ToolbarView {
+                set_vexpand: true,
+                set_hexpand: true,
             }
         }
     }
@@ -171,14 +173,10 @@ impl SimpleComponent for AppShell {
         root.set_title(Some(&init.title));
         root.set_default_size(init.width, init.height);
 
-        // ----- Header bar (also set as window titlebar for CSD) -----
+        // ----- Header bar (top toolbar inside the toolbar view) -----
         let header = libadwaita::HeaderBar::new();
         header.add_css_class("relm4-header");
-
-        // Register the header bar as the window's titlebar widget so that
-        // client-side decorations (close / minimise / maximise buttons) are
-        // rendered inside it.
-        root.set_titlebar(Some(&header));
+        widgets.toolbar_view.add_top_bar(&header);
 
         // ----- Horizontal paned: sidebar | content area -----
         let paned = gtk4::Paned::new(gtk4::Orientation::Horizontal);
@@ -209,7 +207,8 @@ impl SimpleComponent for AppShell {
             .detach();
         paned.set_end_child(Some(toasts.widget()));
 
-        widgets.main_box.append(&paned);
+        // Set the paned layout as the main content of the toolbar view.
+        widgets.toolbar_view.set_content(Some(&paned));
 
         // ----- Dark-mode watcher (auto-started) -----
         let dark_mode = crate::theme::DarkModeWatcher::new();
