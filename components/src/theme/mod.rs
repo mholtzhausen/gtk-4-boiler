@@ -19,8 +19,10 @@ pub use tokens::*;
 
 /// The full theme CSS stylesheet, embedded at compile time.
 ///
-/// Contains all CSS variables, dark mode overrides, and pre-styled
-/// component classes for every relm4-kit primitive and container.
+/// Contains pre-styled component classes for every relm4-kit
+/// primitive and container, plus `.dark` overrides for dark mode.
+/// GTK4 CSS does not support custom properties (`--var`), so all
+/// values are written directly.
 pub const THEME_CSS: &str = include_str!("theme.css");
 
 // ============================================================================
@@ -63,8 +65,8 @@ pub fn init() {
 /// Initialise the theme with additional CSS overrides.
 ///
 /// Same as [`init()`], but appends `extra_css` after the default theme
-/// CSS so applications can override variables or component styles
-/// without modifying the theme itself.
+/// CSS so applications can override component styles without modifying
+/// the theme itself.
 ///
 /// # Panics
 ///
@@ -76,11 +78,7 @@ pub fn init() {
 /// use relm4_kit::theme;
 ///
 /// theme::init_with_overrides(
-///     r#"
-///     :root {
-///         --color-primary: #9334E6;
-///     }
-///     "#
+///     r#".relm4-btn-primary { background-color: #9334E6; }"#
 /// );
 /// ```
 pub fn init_with_overrides(extra_css: &str) {
@@ -114,7 +112,7 @@ pub enum DarkModeMsg {
 /// When the user switches between light and dark mode (either via the
 /// system setting or through [`libadwaita::StyleManager`]), the watcher
 /// adds or removes `"dark"` from each toplevel window's CSS class list
-/// so that the `:root.dark { … }` overrides in `theme.css` take effect.
+/// so that the `.dark { … }` overrides in `theme.css` take effect.
 ///
 /// # Usage
 ///

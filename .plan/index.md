@@ -511,3 +511,27 @@ just docs
 **Notes:**
 - Task 1.1 (Design tokens) was already fully implemented in Phase 0 but not marked as done in TODO. Updated TODO to reflect actual state.
 - The `THEME_CSS` constant is now a `pub const` exported from `theme/mod.rs` for use by theme initialization code in task 1.4.
+
+### 2026-04-30 — Theme CSS fix: GTK4 does NOT support CSS custom properties
+
+**Problem:** The demo emitted ~80 GTK theme parser warnings. `:root` is not a valid GTK
+pseudo-class, `--var-name` custom properties are not supported (GTK treats them as
+unknown property names and skips them), and several CSS properties used in the file
+(`display`, `text-align`, `text-decoration-line`, `transition`, `max-width`, `filter`)
+don't exist in GTK4's CSS subset.
+
+**Fix:** Rewrote `theme.css` entirely:
+- Replaced `:root { ... }` with direct property values on each class selector
+- Replaced `:root.dark { ... }` with `.dark ` prefix selectors for every
+  component (the `DarkModeWatcher` adds the `dark` class to toplevel windows)
+- Removed all `var(--color-x)` references — values are now hardcoded per selector
+- Removed unsupported properties: `display`, `text-align`, `text-decoration-line`,
+  `transition`, `max-width`, `filter`, `line-height`, custom `--scrollbar-*` properties
+- Kept `alpha(color, opacity)` and `rgba()` which GTK4 CSS does support
+- Updated `theme/mod.rs` docs to reflect the no-variables reality
+- Updated integration test to check for component classes instead of `--var` strings
+
+**Key discovery:** GTK4 uses a *strict subset* of CSS3/CSS4. There are no CSS custom
+properties (`--var`), no `:root` pseudo-class, no `display`/`text-align`/`transition`
+properties, and no `max-width`. The `alpha()` function works but only with named
+colors or hex values, not with `var()` references.

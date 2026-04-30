@@ -40,50 +40,17 @@ fn css_parses_successfully() {
     provider.load_from_data(relm4_kit::theme::THEME_CSS);
 }
 
-/// Verify that the CSS contains all expected variable categories.
+/// Verify that the CSS contains all expected component classes.
 fn css_embeds_all_variables() {
     let css = relm4_kit::theme::THEME_CSS;
 
-    // Core colour variables
-    assert!(css.contains("--color-primary"), "missing --color-primary");
-    assert!(css.contains("--color-surface"), "missing --color-surface");
-    assert!(css.contains("--color-text"), "missing --color-text");
-    assert!(css.contains("--color-accent"), "missing --color-accent");
-    assert!(css.contains("--color-danger"), "missing --color-danger");
-    assert!(css.contains("--color-warning"), "missing --color-warning");
-
-    // Spacing variables
-    assert!(css.contains("--spacing-xs"), "missing --spacing-xs");
-    assert!(css.contains("--spacing-sm"), "missing --spacing-sm");
-    assert!(css.contains("--spacing-md"), "missing --spacing-md");
-    assert!(css.contains("--spacing-lg"), "missing --spacing-lg");
-    assert!(css.contains("--spacing-xl"), "missing --spacing-xl");
-
-    // Radius variables
-    assert!(css.contains("--radius-sm"), "missing --radius-sm");
-    assert!(css.contains("--radius-md"), "missing --radius-md");
-    assert!(css.contains("--radius-lg"), "missing --radius-lg");
-    assert!(css.contains("--radius-xl"), "missing --radius-xl");
-
-    // Typography variables
-    assert!(css.contains("--font-sm"), "missing --font-sm");
-    assert!(css.contains("--font-md"), "missing --font-md");
-    assert!(css.contains("--font-lg"), "missing --font-lg");
-    assert!(css.contains("--font-xl"), "missing --font-xl");
-    assert!(css.contains("--font-xxl"), "missing --font-xxl");
-
-    // Shadow variables
-    assert!(css.contains("--shadow-sm"), "missing --shadow-sm");
-    assert!(css.contains("--shadow-md"), "missing --shadow-md");
-    assert!(css.contains("--shadow-lg"), "missing --shadow-lg");
-
     // Dark mode overrides
     assert!(
-        css.contains(":root.dark"),
-        "missing :root.dark overrides"
+        css.contains(".dark "),
+        "missing .dark overrides"
     );
 
-    // Component class for at least one primitive
+    // Component class for core primitives
     assert!(
         css.contains(".relm4-card"),
         "missing .relm4-card class"
@@ -91,6 +58,18 @@ fn css_embeds_all_variables() {
     assert!(
         css.contains(".relm4-btn-primary"),
         "missing .relm4-btn-primary class"
+    );
+    assert!(
+        css.contains(".relm4-toast"),
+        "missing .relm4-toast class"
+    );
+    assert!(
+        css.contains(".relm4-sidebar"),
+        "missing .relm4-sidebar class"
+    );
+    assert!(
+        css.contains(".relm4-empty-state"),
+        "missing .relm4-empty-state class"
     );
 
     eprintln!("PASS: css_embeds_all_variables");
@@ -104,7 +83,7 @@ fn init_does_not_panic() {
 
 /// Verify that `theme::init_with_overrides()` runs without panicking.
 fn init_with_overrides_does_not_panic() {
-    let extra_css = ":root { --color-primary: #ff0000; }";
+    let extra_css = ".relm4-btn-primary { background-color: #ff0000; }";
     relm4_kit::theme::init_with_overrides(extra_css);
     eprintln!("PASS: init_with_overrides_does_not_panic");
 }
