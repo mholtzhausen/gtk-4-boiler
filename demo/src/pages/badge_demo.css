@@ -1,0 +1,199 @@
+/* Badge Demo page — interactive preview of all badge variants, sizes,
+ * icon badge positioning, and an animated live counter.
+ * Scoped via CssProvider to avoid conflicts with other pages. */
+
+/* ============================================================
+   Layout
+   ============================================================ */
+
+.badge-demo-layout {
+    min-width: 0;
+    min-height: 0;
+}
+
+/* ============================================================
+   Section labels
+   ============================================================ */
+
+.badge-demo-section-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
+
+.dark .badge-demo-section-label {
+    color: #ffffff;
+}
+
+.badge-demo-subsection-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #5e5c64;
+}
+
+.dark .badge-demo-subsection-label {
+    color: #b0b0b0;
+}
+
+/* ============================================================
+   Variant gallery — each badge centred in a labelled cell
+   ============================================================ */
+
+.badge-demo-gallery {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 4px;
+}
+
+.dark .badge-demo-gallery {
+    background-color: #242424;
+    border-color: #3a3a3a;
+}
+
+.badge-demo-cell {
+    min-width: 90px;
+    padding: 8px 4px;
+}
+
+.badge-demo-cell-label {
+    font-size: 11px;
+    color: #5e5c64;
+    margin-top: 4px;
+}
+
+.dark .badge-demo-cell-label {
+    color: #b0b0b0;
+}
+
+/* ============================================================
+   Icon + badge overlay mockup
+   ============================================================ */
+
+.badge-demo-icon-mock {
+    background-color: #f0f0f0;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 4px;
+    min-height: 100px;
+}
+
+.dark .badge-demo-icon-mock {
+    background-color: #2a2a2a;
+    border-color: #3a3a3a;
+}
+
+.badge-demo-icon-frame {
+    background-color: #e8eaed;
+    border-radius: 6px;
+    padding: 12px;
+    min-width: 64px;
+    min-height: 64px;
+}
+
+.dark .badge-demo-icon-frame {
+    background-color: #333333;
+}
+
+/* Badge positioned at top-right of icon frame */
+.badge-demo-overlay {
+    margin-top: -8px;
+    margin-left: -8px;
+}
+
+/* ============================================================
+   Animated counter area
+   ============================================================ */
+
+.badge-demo-counter-card {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.dark .badge-demo-counter-card {
+    background-color: #242424;
+    border-color: #3a3a3a;
+}
+
+.badge-demo-counter-label {
+    font-size: 14px;
+    color: #1a1a1a;
+    font-weight: 500;
+}
+
+.dark .badge-demo-counter-label {
+    color: #ffffff;
+}
+
+.badge-demo-counter-value {
+    font-size: 36px;
+    font-weight: 700;
+    color: #3584e4;
+}
+
+.dark .badge-demo-counter-value {
+    color: #4a90d9;
+}
+
+/* ============================================================
+   Status / feedback label
+   ============================================================ */
+
+.badge-demo-status {
+    font-size: 13px;
+    font-style: italic;
+    color: #5e5c64;
+    background-color: alpha(currentColor, 0.03);
+    border-radius: 6px;
+    border: 1px solid alpha(currentColor, 0.08);
+    padding: 10px 14px;
+}
+
+.dark .badge-demo-status {
+    color: #b0b0b0;
+    border-color: alpha(currentColor, 0.15);
+}
+
+/* ============================================================
+   Code panel
+   ============================================================ */
+
+.badge-demo-code-panel {
+    background-color: #2e3440;
+    border-radius: 8px;
+    min-height: 180px;
+}
+
+.dark .badge-demo-code-panel {
+    background-color: #1a1a2e;
+}
+
+.badge-demo-code-title {
+    background-color: #3b4252;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    padding: 6px 12px;
+}
+
+.dark .badge-demo-code-title {
+    background-color: #252540;
+}
+
+.badge-demo-code-title-text {
+    font-size: 11px;
+    color: #8fbcbb;
+    font-family: "Cascadia Code", "Fira Code", "JetBrains Mono", monospace;
+}
+
+.badge-demo-code-text {
+    font-size: 12px;
+    font-family: "Cascadia Code", "Fira Code", "JetBrains Mono", monospace;
+    color: #d8dee9;
+    line-height: 1.5;
+}

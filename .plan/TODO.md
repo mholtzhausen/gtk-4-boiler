@@ -422,14 +422,14 @@
 
 ### 4.6 — Toggle Demo page
 
-- [ ] `demo/src/pages/toggle_demo.rs`:
+- [x] `demo/src/pages/toggle_demo.rs`:
   - Basic toggle
   - Toggle with description
   - State displayed in real-time
 
 ### 4.7 — Badge Demo page
 
-- [ ] `demo/src/pages/badge_demo.rs`:
+- [x] `demo/src/pages/badge_demo.rs`:
   - All variants: Success, Danger, Warning, Info, Neutral
   - All sizes
   - Badges on icons (mocked)
