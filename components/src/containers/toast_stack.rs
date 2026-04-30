@@ -259,29 +259,23 @@ impl ToastStack {
         };
 
         if self.toasts.len() < MAX_VISIBLE {
-            // Show immediately.
+            // Show immediately and schedule auto-dismiss.
             let widget = build_toast_widget(
                 id, &entry.message, entry.kind, action_label.as_deref(), sender,
             );
             self.toast_box.append(&widget);
             self.widgets.insert(id, ToastWidget { _row: widget });
             self.toasts.push(entry);
+            schedule_dismiss(id, sender);
         } else {
             // Queue for later — cap the pending queue so it can't grow unbounded.
+            // No auto-dismiss timer is set here — it will be scheduled when
+            // the toast is promoted to visible in dismiss_toast().
             if self.pending.len() >= MAX_PENDING {
                 self.pending.remove(0);
             }
             self.pending.push(entry);
         }
-
-        // Schedule auto-dismiss for every toast regardless.  If the timer
-        // fires while the toast is still pending (never shown), it is simply
-        // removed from the pending queue by dismiss_toast.
-        let sender_clone = sender.clone();
-        glib::timeout_add_seconds_local(DISMISS_SECS, move || {
-            sender_clone.input(ToastStackMsg::Dismiss(id));
-            glib::ControlFlow::Break
-        });
     }
 
     /// Remove a toast by its id.
@@ -307,15 +301,39 @@ impl ToastStack {
         // Promote the next pending toast if we just freed a slot.
         if was_visible && !self.pending.is_empty() {
             let entry = self.pending.remove(0);
+            let promoted_id = entry.id;
             let widget = build_toast_widget(
-                entry.id, &entry.message, entry.kind,
+                promoted_id, &entry.message, entry.kind,
                 entry.action_label.as_deref(), sender,
             );
             self.toast_box.append(&widget);
-            self.widgets.insert(entry.id, ToastWidget { _row: widget });
+            self.widgets.insert(promoted_id, ToastWidget { _row: widget });
             self.toasts.push(entry);
+            // Schedule auto-dismiss now that the toast is actually visible.
+            schedule_dismiss(promoted_id, sender);
         }
     }
+}
+
+// ============================================================================
+// Auto-dismiss scheduling
+// ============================================================================
+
+/// Schedule auto-dismiss for a toast that is currently visible.
+///
+/// The timer fires after [`DISMISS_SECS`] seconds and sends
+/// [`ToastStackMsg::Dismiss(id)`].  This should only be called when the
+/// toast is actually shown (either immediately in [`add_toast`] or when
+/// promoted from the pending queue in [`dismiss_toast`]).  Pending toasts
+/// **must not** have their timers scheduled here, otherwise they would
+/// expire while still waiting in the queue and disappear instantly when
+/// finally promoted.
+fn schedule_dismiss(id: u32, sender: &ComponentSender<ToastStack>) {
+    let sender_clone = sender.clone();
+    glib::timeout_add_seconds_local(DISMISS_SECS, move || {
+        sender_clone.input(ToastStackMsg::Dismiss(id));
+        glib::ControlFlow::Break
+    });
 }
 
 // ============================================================================
