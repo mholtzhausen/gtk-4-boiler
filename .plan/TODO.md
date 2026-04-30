@@ -377,10 +377,12 @@
 
 ### 4.1 — App shell setup
 
-- [ ] `demo/src/main.rs`:
+- [x] `demo/src/main.rs`:
   - Call `relm4_kit::theme::init()` at startup
   - Create `AppShell` with sidebar pages for each component demo
   - Wire navigation to switch between pages
+- [x] Created 10 page stubs (`demo/src/pages/`) — one per component
+- [x] Modified `AppShell::update()` to switch content stack on sidebar navigation
 
 ### 4.2 — Welcome page
 

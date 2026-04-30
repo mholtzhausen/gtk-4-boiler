@@ -221,6 +221,16 @@ impl SimpleComponent for AppShell {
         match msg {
             AppShellMsg::SidebarNavigated(id) => {
                 log::debug!("AppShell: navigating to page '{}'", id);
+
+                // Switch the content stack to the named page.
+                // Pages are added via `add_titled(_, Some(&id), _)` so the
+                // nav-item id is used as the child name.
+                if let Some(child) = self.content_stack.child_by_name(&id) {
+                    self.content_stack.set_visible_child(&child);
+                } else {
+                    log::warn!("AppShell: no page with id '{}' in content stack", id);
+                }
+
                 let _ = sender.output(AppShellOutput::NavigateTo(id));
             }
         }
