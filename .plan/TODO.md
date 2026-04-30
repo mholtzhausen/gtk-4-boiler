@@ -519,9 +519,9 @@
 
 ### 5.4 — Template pages
 
-- [ ] `template/template/src/pages/mod.rs`
-- [ ] `template/template/src/pages/dashboard.rs` — welcome card + placeholder
-- [ ] `template/template/src/pages/settings.rs` — settings panel stubs
+- [x] `template/template/src/pages/mod.rs`
+- [x] `template/template/src/pages/dashboard.rs` — welcome card + getting-started hints
+- [x] `template/template/src/pages/settings.rs` — settings panel with example groups (general, appearance, account)
 
 ### 5.5 — Template resources
 
