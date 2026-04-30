@@ -252,6 +252,16 @@ fn build_status_bar() -> gtk4::Label {
 }
 
 // ============================================================================
+// Pango markup escaping
+// ============================================================================
+
+/// Escape a string for use in Pango markup text.
+/// Replaces `&` with `&amp;`, `<` with `&lt;`, and `>` with `&gt;`.
+fn escape_markup(s: &str) -> String {
+    s.replace('&', "&amp;").replace('<', "&lt;").replace('>', "&gt;")
+}
+
+// ============================================================================
 // Widget tree traversal — find first ListBox child by type
 // ============================================================================
 
@@ -389,13 +399,14 @@ pub fn create() -> gtk4::Box {
                     .unwrap_or_else(|| String::from("dashboard"))
             };
 
-            // Update status bar.
+            // Update status bar (escape markup special chars).
             let info = item_content(&id);
+            let title_escaped = escape_markup(info.title);
+            let desc_escaped = escape_markup(info.description);
             status_clone.set_markup(
                 &format!(
-                    "<b>Selected:</b> <span color='#3584e4'>{}</span> \
-                     <span color='#5e5c64'>— {}</span>",
-                    info.title, info.description,
+                    "<b>Selected:</b> <span color='#3584e4'>{title_escaped}</span> \
+                     <span color='#5e5c64'>— {desc_escaped}</span>",
                 ),
             );
 
