@@ -16,7 +16,8 @@ mod pages;
 
 fn main() -> glib::ExitCode {
     let app = gtk4::Application::new(Some("com.relm4-kit.demo"), Default::default());
-    app.connect_activate(|_app| {
+
+    app.connect_activate(|app| {
         // Initialise the theme system.  Must happen after the application is
         // created so that GTK and the display are available for the CSS
         // provider.
@@ -47,6 +48,15 @@ fn main() -> glib::ExitCode {
             .size(1200, 800)
             .sidebar(sidebar_items)
             .build();
+
+        // ---- Register the shell's window with the application ----
+
+        // The AppShell creates an `AdwApplicationWindow` in its `view!` macro,
+        // but it is not automatically associated with the GtkApplication.
+        // We must add it here so that the window becomes visible.
+        let window = shell.widget();
+        app.add_window(window.upcast_ref::<gtk4::Window>());
+        window.present();
 
         // ---- Build all page widgets and add them to the content stack ----
 
