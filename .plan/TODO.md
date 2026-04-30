@@ -200,7 +200,7 @@
 
 ### 2.5 — Badge
 
-- [ ] Create `components/src/primitives/badge.rs`:
+- [x] Create `components/src/primitives/badge.rs`:
   - `pub enum BadgeVariant { Success, Danger, Warning, Info, Neutral }`
   - `pub enum BadgeSize { Small, Medium }`
   - `pub struct Badge` — returns `gtk::Label` styled
@@ -210,7 +210,7 @@
     - `.size(BadgeSize)`
     - `.build()`
   - CSS classes: `.relm4-badge`, `.badge-success`, `.badge-danger`
-- [ ] Export from `primitives/mod.rs`
+- [x] Export from `primitives/mod.rs`
 
 ### 2.6 — Avatar
 
