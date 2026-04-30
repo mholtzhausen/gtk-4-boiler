@@ -104,11 +104,14 @@ impl AppShellBuilder {
     /// Build and launch the [`AppShell`] component, returning a
     /// [`Controller`] that keeps it alive.
     ///
-    /// The returned controller should be kept alive for the lifetime of
-    /// the application (e.g. stored in an [`Option`] field or leaked with
-    /// [`Box::leak`]).
+    /// The component's runtime is detached so that the controller can be
+    /// dropped without stopping the component.  The window and all child
+    /// controllers (sidebar, toast stack, dark-mode watcher) stay alive
+    /// for the lifetime of the GTK window.
     pub fn build(self) -> Controller<AppShell> {
-        AppShell::builder().launch(self).detach()
+        let mut controller = AppShell::builder().launch(self).detach();
+        controller.detach_runtime();
+        controller
     }
 }
 
