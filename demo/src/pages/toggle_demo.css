@@ -1,0 +1,127 @@
+/* Toggle Demo page — interactive preview of all toggle configurations.
+ * Scoped via CssProvider to avoid conflicts with other pages. */
+
+/* ============================================================
+   Layout
+   ============================================================ */
+
+.toggle-demo-layout {
+    min-width: 0;
+    min-height: 0;
+}
+
+/* ============================================================
+   Section labels
+   ============================================================ */
+
+.toggle-demo-section-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.dark .toggle-demo-section-label {
+    color: #ffffff;
+}
+
+.toggle-demo-subsection-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #5e5c64;
+}
+
+.dark .toggle-demo-subsection-label {
+    color: #b0b0b0;
+}
+
+/* ============================================================
+   Toggle demo cards (styled groups)
+   ============================================================ */
+
+.toggle-demo-card {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 4px;
+}
+
+.dark .toggle-demo-card {
+    background-color: #242424;
+    border-color: #3a3a3a;
+}
+
+/* ============================================================
+   Interactive live-feedback area
+   ============================================================ */
+
+.toggle-demo-status {
+    font-size: 13px;
+    font-style: italic;
+    color: #5e5c64;
+    background-color: alpha(currentColor, 0.03);
+    border-radius: 6px;
+    border: 1px solid alpha(currentColor, 0.08);
+    padding: 10px 14px;
+}
+
+.dark .toggle-demo-status {
+    color: #b0b0b0;
+    border-color: alpha(currentColor, 0.15);
+}
+
+.toggle-demo-state-log {
+    font-size: 12px;
+    color: #1a1a1a;
+    background-color: alpha(#3584e4, 0.06);
+    border-radius: 6px;
+    border: 1px solid alpha(#3584e4, 0.2);
+    padding: 10px 14px;
+    min-height: 18px;
+}
+
+.dark .toggle-demo-state-log {
+    color: #ffffff;
+    background-color: alpha(#4a90d9, 0.1);
+    border-color: alpha(#4a90d9, 0.3);
+}
+
+/* ============================================================
+   Code panel (shared style with button demo)
+   ============================================================ */
+
+.toggle-demo-code-panel {
+    background-color: #2e3440;
+    border-radius: 8px;
+    min-height: 180px;
+}
+
+.dark .toggle-demo-code-panel {
+    background-color: #1a1a2e;
+}
+
+.toggle-demo-code-title {
+    background-color: #3b4252;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    padding: 6px 12px;
+}
+
+.dark .toggle-demo-code-title {
+    background-color: #252540;
+}
+
+.toggle-demo-code-title-text {
+    font-size: 11px;
+    color: #8fbcbb;
+    font-family: "Cascadia Code", "Fira Code", "JetBrains Mono", monospace;
+}
+
+.toggle-demo-code-text {
+    font-size: 12px;
+    font-family: "Cascadia Code", "Fira Code", "JetBrains Mono", monospace;
+    color: #d8dee9;
+    line-height: 1.5;
+}
