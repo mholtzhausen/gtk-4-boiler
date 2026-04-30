@@ -282,7 +282,7 @@
 
 ### 3.5 — Dialog
 
-- [ ] Create `components/src/containers/dialog.rs`:
+- [x] Create `components/src/containers/dialog.rs`:
   - Wraps `adw::AlertDialog`
   - `pub struct Dialog;` — static methods, not a managed component:
     - `Dialog::confirm(title, description) -> DialogBuilder`
@@ -291,7 +291,12 @@
     - `.on_confirm(Msg)`, `.on_cancel(Msg)`
     - `.present(parent_window)` — shows the dialog
   - No CSS needed (wraps libadwaita's styled dialog)
-- [ ] Export from `containers/mod.rs`
+- [x] Export from `containers/mod.rs`
+
+**Notes:**
+- Required enabling `v1_5` feature on `libadwaita` in `components/Cargo.toml` to access `AlertDialog` and `ResponseAppearance`
+- Uses `AlertDialog::choose()` async API for presentation instead of signal-based approach
+- `.on_confirm()` and `.on_cancel()` take closures (`FnOnce`) rather than concrete message types since Dialog is not a managed component
 
 ### 3.6 — EmptyState
 
