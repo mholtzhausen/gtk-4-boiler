@@ -313,7 +313,7 @@
 
 ### 3.7 — SearchBar
 
-- [ ] Create `components/src/containers/search_bar.rs`:
+- [x] Create `components/src/containers/search_bar.rs`:
   - `pub struct SearchBarModel { query: String, results: Vec<SearchResult>, debounce_source: Option<glib::SourceId>, is_focused: bool }`
   - `pub enum SearchBarMsg { QueryChanged(String), ResultSelected(usize), FocusGained, FocusLost, Dismiss }`
   - Uses `gtk::SearchEntry` + popover dropdown
@@ -321,7 +321,7 @@
   - Keyboard nav: Up/Down arrows to select result, Enter to confirm, Escape to dismiss
   - `SearchBar::builder()` → `Controller<SearchBar>`
   - CSS: `.relm4-search-bar`, `.relm4-search-results`, `.relm4-search-result`, `.relm4-search-result--selected`
-- [ ] Export from `containers/mod.rs`
+- [x] Export from `containers/mod.rs` (already done)
 
 ### 3.8 — TreeView
 
@@ -689,7 +689,7 @@ Phase 0 ───→ Phase 1 ───→ Phase 2 ───→ Phase 3 ───
 - [ ] Phase 0: ✅ Done
 - [ ] Phase 1: ✅ Done
 - [ ] Phase 2: Card, Button, Toggle, Badge
-- [ ] Phase 3: ✅ AppShell, Sidebar, ToastStack — ❌ Dialog, EmptyState
+- [x] Phase 3: ✅ AppShell, Sidebar, ToastStack, Dialog, EmptyState, SearchBar (remaining: TreeView, SettingsPanel, TabView)
 - [ ] Phase 4: Welcome, Theme Showcase, Card, Button, Toggle, Badge, Toast, Dialog, EmptyState pages
 - [ ] Phase 5: Template scaffolds a compilable app (has bugs to fix)
 - [ ] Phase 6: ARCHITECTURE.md, COMPONENTS.md (at least for MVP components)
