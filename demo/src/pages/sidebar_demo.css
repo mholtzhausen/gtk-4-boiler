@@ -1,0 +1,124 @@
+/* Sidebar Demo page — embedded sidebar preview + code panel.
+ * Scoped via CssProvider to avoid conflicts with other pages. */
+
+/* ============================================================
+   Layout
+   ============================================================ */
+
+.sidebar-demo-layout {
+    min-width: 0;
+    min-height: 0;
+}
+
+.sidebar-demo-section-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
+
+.dark .sidebar-demo-section-label {
+    color: #ffffff;
+}
+
+/* ============================================================
+   Sidebar + content split area
+   ============================================================ */
+
+.sidebar-demo-paned {
+    min-height: 400px;
+    border: 1px solid alpha(currentColor, 0.12);
+    border-radius: 8px;
+    background-color: alpha(currentColor, 0.02);
+}
+
+.dark .sidebar-demo-paned {
+    border-color: alpha(currentColor, 0.2);
+}
+
+.sidebar-demo-content-area {
+    padding: 24px;
+    min-width: 200px;
+}
+
+.sidebar-demo-content-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+}
+
+.dark .sidebar-demo-content-title {
+    color: #ffffff;
+}
+
+.sidebar-demo-content-desc {
+    font-size: 13px;
+    color: #5e5c64;
+}
+
+.dark .sidebar-demo-content-desc {
+    color: #b0b0b0;
+}
+
+.sidebar-demo-content-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+
+/* ============================================================
+   Status bar (shows last selected item)
+   ============================================================ */
+
+.sidebar-demo-status {
+    font-size: 13px;
+    color: #5e5c64;
+    padding: 8px 12px;
+    background-color: alpha(currentColor, 0.03);
+    border-radius: 6px;
+    border: 1px solid alpha(currentColor, 0.08);
+}
+
+.dark .sidebar-demo-status {
+    color: #b0b0b0;
+    border-color: alpha(currentColor, 0.15);
+}
+
+/* ============================================================
+   Code panel
+   ============================================================ */
+
+.sidebar-demo-code-panel {
+    background-color: #2e3440;
+    border-radius: 8px;
+    min-height: 120px;
+}
+
+.dark .sidebar-demo-code-panel {
+    background-color: #1a1a2e;
+}
+
+.sidebar-demo-code-title {
+    background-color: #3b4252;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    padding: 6px 12px;
+}
+
+.dark .sidebar-demo-code-title {
+    background-color: #252540;
+}
+
+.sidebar-demo-code-title-text {
+    font-size: 11px;
+    color: #8fbcbb;
+    font-family: "Cascadia Code", "Fira Code", "JetBrains Mono", monospace;
+}
+
+.sidebar-demo-code-text {
+    font-size: 12px;
+    font-family: "Cascadia Code", "Fira Code", "JetBrains Mono", monospace;
+    color: #d8dee9;
+    line-height: 1.5;
+}

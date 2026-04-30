@@ -437,7 +437,7 @@
 
 ### 4.8 — Sidebar Demo page
 
-- [ ] `demo/src/pages/sidebar_demo.rs`:
+- [x] `demo/src/pages/sidebar_demo.rs`:
   - Sidebar embedded in content area (not the app shell sidebar)
   - Items with icons, badges, nested children
   - Section headers
