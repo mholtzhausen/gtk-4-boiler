@@ -410,6 +410,35 @@ scrollbar slider:hover {
     border-bottom-color: #2a2a2a;
 }
 
+/* ---------- Content Pages ---------- */
+
+.relm4-page {
+    background-color: #ffffff;
+}
+
+.dark .relm4-page {
+    background-color: #1a1a1a;
+}
+
+.relm4-page .relm4-page-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.dark .relm4-page .relm4-page-title {
+    color: #ffffff;
+}
+
+.relm4-page .relm4-page-subtitle {
+    font-size: 14px;
+    color: #5e5c64;
+}
+
+.dark .relm4-page .relm4-page-subtitle {
+    color: #b0b0b0;
+}
+
 /* ---------- Empty State Container ---------- */
 
 .relm4-empty-state {
