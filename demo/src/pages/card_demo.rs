@@ -1,7 +1,7 @@
-//! Card Demo page — shows the three card variants.
+//! Card Demo page — shows the three card variants with distinct styles.
 
 use gtk4::prelude::*;
-use relm4_kit::primitives::Card;
+use relm4_kit::primitives::{Card, CardStyle};
 
 /// Build the card demo page.
 pub fn create() -> gtk4::Box {
@@ -26,24 +26,45 @@ pub fn create() -> gtk4::Box {
     title.add_css_class("relm4-page-title");
     container.append(&title);
 
-    // ---- Flat card ----
+    // ---- Section: Flat card ----
+    let flat_section_label = gtk4::Label::new(Some("Flat Card"));
+    flat_section_label.add_css_class("relm4-page-subtitle");
+    flat_section_label.set_halign(gtk4::Align::Start);
+    flat_section_label.set_margin_top(8);
+    container.append(&flat_section_label);
+
     let flat_card = Card::<()>::new()
+        .style(CardStyle::Flat)
         .title("Flat Card")
-        .subtitle("No shadow, sits flush with the surface.")
+        .subtitle("No shadow, sits flush with the surface. Different background + subtle left accent.")
         .build();
     container.append(&flat_card);
 
-    // ---- Elevated card ----
+    // ---- Section: Elevated card ----
+    let elevated_section_label = gtk4::Label::new(Some("Elevated Card"));
+    elevated_section_label.add_css_class("relm4-page-subtitle");
+    elevated_section_label.set_halign(gtk4::Align::Start);
+    elevated_section_label.set_margin_top(8);
+    container.append(&elevated_section_label);
+
     let elevated_card = Card::<()>::new()
+        .style(CardStyle::Elevated)
         .title("Elevated Card")
-        .subtitle("Lifted with a subtle drop shadow.")
+        .subtitle("Lifted above the surface with a layered drop shadow and a blue accent.")
         .build();
     container.append(&elevated_card);
 
-    // ---- Outlined card ----
+    // ---- Section: Outlined card ----
+    let outlined_section_label = gtk4::Label::new(Some("Outlined Card"));
+    outlined_section_label.add_css_class("relm4-page-subtitle");
+    outlined_section_label.set_halign(gtk4::Align::Start);
+    outlined_section_label.set_margin_top(8);
+    container.append(&outlined_section_label);
+
     let outlined_card = Card::<()>::new()
+        .style(CardStyle::Outlined)
         .title("Outlined Card")
-        .subtitle("Bordered but shadowless.")
+        .subtitle("Transparent background with a clear border for lightweight separation.")
         .build();
     container.append(&outlined_card);
 

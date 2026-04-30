@@ -386,7 +386,7 @@
 
 ### 4.2 — Welcome page
 
-- [ ] `demo/src/pages/welcome.rs`:
+- [x] `demo/src/pages/welcome.rs`:
   - Large title: "relm4-kit"
   - Subtitle: "Curated components for GTK4 + relm4"
   - Quickstart code block showing basic usage

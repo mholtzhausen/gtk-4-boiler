@@ -65,28 +65,50 @@ scrollbar slider:hover {
     background-color: #1a1a1a;
 }
 
+/* Flat — sits flush with the surface, distinguished by a slightly
+   different background and a visible border. A subtle accent strip
+   on the left edge gives it a hint of structure. */
 .relm4-card.card-flat {
-    border: 1px solid #f6f5f4;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-left: 4px solid #c0c6cc;
     box-shadow: none;
 }
 
 .dark .relm4-card.card-flat {
-    border-color: #2a2a2a;
+    background-color: #242424;
+    border-color: #3a3a3a;
+    border-left-color: #4a4a4a;
 }
 
+/* Elevated — lifted above the surface with a multi-layer shadow.
+   A blue left accent strip signals this card is interactive/prominent. */
 .relm4-card.card-elevated {
-    border: none;
-    box-shadow: 0 4px 12px alpha(black, 0.10);
+    background-color: #ffffff;
+    border: 1px solid #f0f0f0;
+    border-left: 4px solid #3584e4;
+    box-shadow: 0 1px 3px alpha(black, 0.06), 0 4px 16px alpha(black, 0.08);
 }
 
 .dark .relm4-card.card-elevated {
-    box-shadow: 0 4px 12px alpha(black, 0.30);
+    background-color: #1a1a1a;
+    border-color: #2a2a2a;
+    border-left-color: #4a90d9;
+    box-shadow: 0 1px 3px alpha(black, 0.10), 0 6px 20px alpha(black, 0.35);
 }
 
+/* Outlined — transparent background, clear border for structural
+   separation without visual weight. */
 .relm4-card.card-outlined {
-    border: 1px solid #5e5c64;
-    box-shadow: none;
     background-color: transparent;
+    border: 1.5px solid #5e5c64;
+    border-left: 4px solid #5e5c64;
+    box-shadow: none;
+}
+
+.dark .relm4-card.card-outlined {
+    border-color: #6a6a6a;
+    border-left-color: #6a6a6a;
 }
 
 .relm4-card .card-title {

@@ -1,0 +1,45 @@
+/* Welcome page — code block and doc link card styles.
+ * Scoped via CssProvider to just the welcome page widgets. */
+
+/* Code block container */
+.code-title-bar {
+    background-color: #2a2a2a;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    padding: 8px 12px;
+    min-height: 20px;
+}
+
+.code-title-dot {
+    min-width: 8px;
+    min-height: 8px;
+    border-radius: 50%;
+    background-color: #e66156;
+    box-shadow: 16px 0 0 #f6d32d, 32px 0 0 #33d17a;
+}
+
+.code-title-text {
+    color: #b0b0b0;
+    font-size: 12px;
+}
+
+.code-text {
+    font-family: "Cascadia Code", "Fira Code", "JetBrains Mono", monospace;
+    font-size: 13px;
+    color: #d4d4d4;
+    background-color: #1e1e1e;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+/* Doc link card */
+.doc-link-card {
+    background-color: alpha(currentColor, 0.04);
+    border-radius: 8px;
+    border: 1px solid alpha(currentColor, 0.10);
+}
+
+.doc-link-title {
+    font-weight: 600;
+    font-size: 13px;
+}
