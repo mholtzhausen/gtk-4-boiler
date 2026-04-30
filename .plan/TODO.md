@@ -226,7 +226,7 @@
 
 ### 2.7 — Primitives prelude
 
-- [ ] Update `components/src/prelude.rs` to re-export all primitives
+- [x] Update `components/src/prelude.rs` to re-export all primitives
 
 **Phase 2 done when:** All primitives compile, have CSS, and can be instantiated via the builder pattern.
 
@@ -236,10 +236,10 @@
 
 ### 3.1 — NavItem (data struct)
 
-- [ ] Create `components/src/containers/nav_item.rs`:
+- [x] Create `components/src/containers/nav_item.rs`:
   - `pub struct NavItem { pub label: String, pub icon: Option<String>, pub id: String, pub badge: Option<u32>, pub children: Vec<NavItem>, pub section: bool }`
   - `impl NavItem { pub fn new(label, icon, id) -> Self, pub fn with_badge(self, u32) -> Self, pub fn with_children(self, Vec<NavItem>) -> Self, pub fn section(label) -> Self }`
-- [ ] Export from `containers/mod.rs`
+- [x] Export from `containers/mod.rs`
 
 ### 3.2 — Sidebar
 
