@@ -207,18 +207,33 @@ fn create_dark_mode_toggle() -> gtk4::Box {
     toggle.set_halign(gtk4::Align::End);
     toggle.set_hexpand(true);
 
-    // When toggled, request the colour scheme through libadwaita's
-    // StyleManager.  The DarkModeWatcher (which is always running inside
-    // AppShell) observes `notify::is-dark` and will add/remove the `.dark`
-    // CSS class automatically.  This avoids two systems fighting over the
-    // same class list.
+    // When toggled, update both the StyleManager colour scheme (so the
+    // DarkModeWatcher and other libadwaita consumers see the preference)
+    // AND directly toggle the `.dark` CSS class on all toplevel windows.
+    // The direct class toggle is necessary because `notify::is-dark` on
+    // StyleManager only fires for *system* preference changes, not when
+    // the explicit color-scheme is set programmatically.
     toggle.connect_active_notify(move |sw| {
-        let scheme = if sw.is_active() {
+        let is_dark = sw.is_active();
+
+        // Update the libadwaita colour-scheme preference.
+        let scheme = if is_dark {
             libadwaita::ColorScheme::ForceDark
         } else {
             libadwaita::ColorScheme::ForceLight
         };
         style_manager.set_color_scheme(scheme);
+
+        // Immediately toggle the `.dark` CSS class on every toplevel
+        // window so the visual change takes effect regardless of whether
+        // `notify::is-dark` fires.
+        for widget in gtk4::Window::list_toplevels() {
+            if is_dark {
+                widget.add_css_class("dark");
+            } else {
+                widget.remove_css_class("dark");
+            }
+        }
     });
 
     row.append(&toggle);
