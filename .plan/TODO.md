@@ -412,12 +412,13 @@
 
 ### 4.5 — Button Demo page
 
-- [ ] `demo/src/pages/button_demo.rs`:
+- [x] `demo/src/pages/button_demo.rs`:
   - All variants: Primary, Secondary, Ghost, Danger, Link
   - All sizes: Small, Medium, Large
   - With icon, without icon
   - Disabled state
   - Interactive: clicking shows toast
+  - Code panel with sample source
 
 ### 4.6 — Toggle Demo page
 

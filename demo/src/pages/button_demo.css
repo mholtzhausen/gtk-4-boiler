@@ -1,0 +1,133 @@
+/* Button Demo page — interactive preview of all variants, sizes, icons,
+ * disabled states, and click feedback.
+ * Scoped via CssProvider to avoid conflicts with other pages. */
+
+/* ============================================================
+   Layout
+   ============================================================ */
+
+.btn-demo-layout {
+    min-width: 0;
+    min-height: 0;
+}
+
+/* ============================================================
+   Section labels
+   ============================================================ */
+
+.btn-demo-section-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
+
+.dark .btn-demo-section-label {
+    color: #ffffff;
+}
+
+.btn-demo-subsection-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #5e5c64;
+}
+
+.dark .btn-demo-subsection-label {
+    color: #b0b0b0;
+}
+
+/* ============================================================
+   Grid labels (variant names in the grid tables)
+   ============================================================ */
+
+.btn-demo-grid-label {
+    font-size: 13px;
+    color: #5e5c64;
+    padding-right: 8px;
+}
+
+.dark .btn-demo-grid-label {
+    color: #b0b0b0;
+}
+
+/* ============================================================
+   Feedback / status label
+   ============================================================ */
+
+.btn-demo-feedback {
+    font-size: 13px;
+    font-style: italic;
+    color: #5e5c64;
+    background-color: alpha(currentColor, 0.03);
+    border-radius: 6px;
+    border: 1px solid alpha(currentColor, 0.08);
+    padding: 10px 14px;
+}
+
+.dark .btn-demo-feedback {
+    color: #b0b0b0;
+    border-color: alpha(currentColor, 0.15);
+}
+
+.btn-demo-status {
+    font-size: 13px;
+    color: #1a1a1a;
+    background-color: alpha(#3584e4, 0.06);
+    border-radius: 6px;
+    border: 1px solid alpha(#3584e4, 0.2);
+    padding: 10px 14px;
+    min-height: 20px;
+}
+
+.dark .btn-demo-status {
+    color: #ffffff;
+    background-color: alpha(#4a90d9, 0.1);
+    border-color: alpha(#4a90d9, 0.3);
+}
+
+/* ============================================================
+   Button rows
+   ============================================================ */
+
+.btn-demo-row {
+    min-height: 28px;
+}
+
+/* ============================================================
+   Code panel
+   ============================================================ */
+
+.btn-demo-code-panel {
+    background-color: #2e3440;
+    border-radius: 8px;
+    min-height: 200px;
+}
+
+.dark .btn-demo-code-panel {
+    background-color: #1a1a2e;
+}
+
+.btn-demo-code-title {
+    background-color: #3b4252;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    padding: 6px 12px;
+}
+
+.dark .btn-demo-code-title {
+    background-color: #252540;
+}
+
+.btn-demo-code-title-text {
+    font-size: 11px;
+    color: #8fbcbb;
+    font-family: "Cascadia Code", "Fira Code", "JetBrains Mono", monospace;
+}
+
+.btn-demo-code-text {
+    font-size: 12px;
+    font-family: "Cascadia Code", "Fira Code", "JetBrains Mono", monospace;
+    color: #d8dee9;
+    line-height: 1.5;
+}
