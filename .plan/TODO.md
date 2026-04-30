@@ -464,10 +464,12 @@
 
 ### 4.11 — EmptyState Demo page
 
-- [ ] `demo/src/pages/empty_state_demo.rs`:
+- [x] `demo/src/pages/empty_state_demo.rs`:
   - Basic empty state
   - With action button
   - Different icons
+  - Interactive playground (custom icon, title, desc, action)
+  - Code panel with API examples
 
 ### 4.12 — SearchBar Demo page (post-MVP)
 
