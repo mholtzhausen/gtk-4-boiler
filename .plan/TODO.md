@@ -403,7 +403,7 @@
 
 ### 4.4 — Card Demo page
 
-- [ ] `demo/src/pages/card_demo.rs`:
+- [x] `demo/src/pages/card_demo.rs`:
   - Shows all 3 card styles: Flat, Elevated, Outlined
   - Cards with footer actions
   - Cards with long content (scrollable)

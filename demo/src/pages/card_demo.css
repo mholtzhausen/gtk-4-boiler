@@ -1,0 +1,100 @@
+/* Card Demo page — interactive preview + knobs + code panel.
+ * Scoped via CssProvider to avoid conflicts with other pages. */
+
+/* ============================================================
+   Layout
+   ============================================================ */
+
+.card-demo-layout {
+    min-width: 0;
+    min-height: 0;
+}
+
+.card-demo-preview-area {
+    min-height: 200px;
+}
+
+.card-demo-knobs {
+    background-color: alpha(currentColor, 0.03);
+    border-radius: 8px;
+    border: 1px solid alpha(currentColor, 0.08);
+    padding: 16px;
+}
+
+.dark .card-demo-knobs {
+    border-color: alpha(currentColor, 0.15);
+}
+
+.card-demo-knob-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #5e5c64;
+    min-width: 100px;
+}
+
+.dark .card-demo-knob-label {
+    color: #b0b0b0;
+}
+
+.card-demo-section-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
+
+.dark .card-demo-section-label {
+    color: #ffffff;
+}
+
+/* ============================================================
+   Code panel
+   ============================================================ */
+
+.card-demo-code-panel {
+    background-color: #2e3440;
+    border-radius: 8px;
+    min-height: 120px;
+}
+
+.dark .card-demo-code-panel {
+    background-color: #1a1a2e;
+}
+
+.card-demo-code-title {
+    background-color: #3b4252;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    padding: 6px 12px;
+}
+
+.dark .card-demo-code-title {
+    background-color: #252540;
+}
+
+.card-demo-code-title-text {
+    font-size: 11px;
+    color: #8fbcbb;
+    font-family: "Cascadia Code", "Fira Code", "JetBrains Mono", monospace;
+}
+
+.card-demo-code-text {
+    font-size: 12px;
+    font-family: "Cascadia Code", "Fira Code", "JetBrains Mono", monospace;
+    color: #d8dee9;
+    line-height: 1.5;
+}
+
+/* ============================================================
+   Long content demo
+   ============================================================ */
+
+.card-demo-long-content {
+    font-size: 13px;
+    color: #5e5c64;
+}
+
+.dark .card-demo-long-content {
+    color: #b0b0b0;
+}
